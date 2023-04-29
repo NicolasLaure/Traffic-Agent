@@ -37,19 +37,23 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     public bool clearGrid = true;
     public int columns = 3;
     public int rows = 3;
-    public Vector2 gridSpacing = new Vector2(100, 100);
-    public Vector2 gridOffset = new Vector2(0, 0);
+    //public Vector2 gridSpacing = new Vector2(100, 100);
+    //public Vector2 gridOffset = new Vector2(0, 0);
+    public Vector2 borderSpacing = new Vector2(0, 0);
+    public float nodeSize = 10;
     public GameObject defaultNode;
 
     //Previous values of the public variables, used to detect when one has changed
-    [SerializeField]
-    int prevColumns = 3;
-    [SerializeField]
-    int prevRows = 3;
-    [SerializeField]
-    Vector2 prevGridSpacing = new Vector2(100, 100);
-    [SerializeField]
-    Vector2 prevGridOffset = new Vector2(0, 0);
+    [SerializeField, HideInInspector]
+    private int prevColumns = 3;
+    [SerializeField, HideInInspector]
+    private int prevRows = 3;
+    //[SerializeField, HideInInspector]
+    //Vector2 prevGridSpacing = new Vector2(100, 100);
+    //[SerializeField, HideInInspector]
+    //Vector2 prevGridOffset = new Vector2(0, 0);
+    [SerializeField, HideInInspector]
+    private Vector2 prevBorderSpacing = new Vector2(0, 0);
 
     //Public variables hidden from the Inspector
     [HideInInspector]
@@ -58,9 +62,37 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     public Node[,] grid;
 
     //A 1D array used for serialization purposes
-    [SerializeField] 
+    [SerializeField, HideInInspector] 
     Node[] serializableGrid;
 
+
+    [HideInInspector]
+    public Vector2 topLeft;
+    [HideInInspector]
+    public float horizontalSpacing;
+    [HideInInspector]
+    public float verticalSpacing;
+
+    public void CalculateSpacing()
+    {
+        Vector2 workingArea = new Vector2((1 - 2 * borderSpacing.x / 100.0f), (1 - 2 * borderSpacing.y / 100.0f));
+
+        Rect rect = gridParent.GetComponent<RectTransform>().rect;
+        horizontalSpacing = workingArea.x / ((columns - 1) * 1.0f);
+        verticalSpacing = workingArea.y / ((rows - 1) * 1.0f);
+
+        if (horizontalSpacing * rect.width < verticalSpacing * rect.height)
+        {
+            verticalSpacing = horizontalSpacing * rect.width / rect.height;
+        }
+        else
+        {
+            horizontalSpacing = verticalSpacing * rect.height / rect.width;
+        }
+
+        workingArea = new Vector2(horizontalSpacing * (columns - 1), verticalSpacing * (rows - 1));
+        topLeft = new Vector2((1 - workingArea.x) * 0.5f, 1 - (1 - workingArea.y) * 0.5f);
+    }
 
 #if UNITY_EDITOR
     //This weird workaround is to avoid a spam warning
@@ -73,7 +105,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
         //Raise an error if the default node hasn't been assigned
         if (defaultNode == null)
         {
-            Debug.LogWarning("ERROR: No default node prefab specified");
+            Debug.LogWarning("Warning: No default node prefab specified");
             return;
         }
 
@@ -84,7 +116,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
             clearGrid = true;
         }
 
-        Vector2 prevPos = new Vector3(0, 0);
+        Vector2[] prevRect = new Vector2[] { Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero };
 
         //If the grid is set to be cleared, clear it and reset everything
         if (clearGrid == true)
@@ -92,7 +124,10 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
             //If a grid parent exists, store its location in order to assign it to the new one that'll be created
             if (gridParent != null)
             {
-                prevPos = gridParent.transform.localPosition;
+                prevRect[0] = gridParent.GetComponent<RectTransform>().anchorMin;
+                prevRect[1] = gridParent.GetComponent<RectTransform>().anchorMax;
+                prevRect[2] = gridParent.GetComponent<RectTransform>().offsetMin;
+                prevRect[3] = gridParent.GetComponent<RectTransform>().offsetMax;
             }
             StartCoroutine(Destroy(gridParent));
             gridParent = null;
@@ -105,14 +140,18 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
         //If the grid parent doesn't exist, create a new one
         if (gridParent == null)
         {
-            gridParent = new GameObject("Grid");
-            gridParent.transform.parent = gameObject.transform;
-            gridParent.transform.localPosition = prevPos;
+            gridParent = new GameObject("Grid", typeof(RectTransform));
+            gridParent.transform.SetParent(gameObject.transform);
+            gridParent.GetComponent<RectTransform>().anchorMin = prevRect[0];
+            gridParent.GetComponent<RectTransform>().anchorMax = prevRect[1];
+            gridParent.GetComponent<RectTransform>().offsetMin = prevRect[2];
+            gridParent.GetComponent<RectTransform>().offsetMax = prevRect[3];
         }
 
         //If the amount of rows or columns in the grid have changed, update the grid accordingly
         if (prevColumns != columns || prevRows != rows)
         {
+            CalculateSpacing();
             Node[,] tempGrid = new Node[columns, rows];
 
             for (int i = 0; i < columns; i++)
@@ -121,28 +160,28 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
                 {
                     if (i < grid.GetLength(0) && j < grid.GetLength(1))
                     {
-                        grid[i, j].obj.transform.localPosition = new Vector2(gridSpacing.x * i, gridSpacing.y * j * -1) + gridOffset;
+                        //grid[i, j].obj.transform.localPosition = new Vector2(gridSpacing.x * i, gridSpacing.y * j * -1) + gridOffset;
+                        RectTransform rt = grid[i, j].obj.GetComponent<RectTransform>();
+                        rt.anchorMin = topLeft + new Vector2(i * horizontalSpacing, j * verticalSpacing * -1);
+                        rt.anchorMax = rt.anchorMin;
+                        rt.offsetMin = Vector2.zero;
+                        rt.offsetMax = Vector2.zero;
+                        rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, nodeSize);
+                        rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, nodeSize);
                         tempGrid[i, j] = grid[i, j];
                     }
                     else
                     {
                         Node tempNode = new Node(GridState.ROAD, i, j, Instantiate(defaultNode, gridParent.transform), this);
                         tempNode.obj.name = tempNode.obj.GetComponent<NodeCycle>().nodeName + " (" + i + "; " + j + ")";
-                        if (j > 0)
-                        {
-                            tempNode.obj.transform.localPosition = new Vector2(gridSpacing.x * i, gridSpacing.y * j * -1) + gridOffset;
-                        }
-                        else
-                        {
-                            if (i > 0)
-                            {
-                                tempNode.obj.transform.localPosition = new Vector2(gridSpacing.x * i, gridSpacing.y * j * -1) + gridOffset;
-                            }
-                            else
-                            {
-                                tempNode.obj.transform.localPosition = new Vector2(0, 0) + gridOffset;
-                            }
-                        }
+                        //tempNode.obj.transform.localPosition = new Vector2(gridSpacing.x * i, gridSpacing.y * j * -1) + gridOffset;
+                        RectTransform rt = tempNode.obj.GetComponent<RectTransform>();
+                        rt.anchorMin = topLeft + new Vector2(i * horizontalSpacing, j * verticalSpacing * -1);
+                        rt.anchorMax = rt.anchorMin;
+                        rt.offsetMin = Vector2.zero;
+                        rt.offsetMax = Vector2.zero;
+                        rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, nodeSize);
+                        rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, nodeSize);
                         tempGrid[i, j] = tempNode;
                     }
                 }
@@ -177,17 +216,27 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
         else
         {
             //If only the grid spacing or offset have changed, update the grid accordingly
-            if (gridSpacing != prevGridSpacing || gridOffset != prevGridOffset)
+            //if (gridSpacing != prevGridSpacing || gridOffset != prevGridOffset)
+            if (borderSpacing != prevBorderSpacing)
             {
+                CalculateSpacing();
                 for (int i = 0; i < grid.GetLength(0); i++)
                 {
                     for (int j = 0; j < grid.GetLength(1); j++)
                     {
-                        grid[i, j].obj.transform.localPosition = new Vector2(gridSpacing.x * i, gridSpacing.y * j * -1) + gridOffset;
+                        //grid[i, j].obj.transform.localPosition = new Vector2(gridSpacing.x * i, gridSpacing.y * j * -1) + gridOffset;
+                        RectTransform rt = grid[i, j].obj.GetComponent<RectTransform>();
+                        rt.anchorMin = topLeft + new Vector2(i * horizontalSpacing, j * verticalSpacing * -1);
+                        rt.anchorMax = rt.anchorMin;
+                        rt.offsetMin = Vector2.zero;
+                        rt.offsetMax = Vector2.zero;
+                        rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, nodeSize);
+                        rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, nodeSize);
                     }
                 }
-                prevGridSpacing = gridSpacing;
-                prevGridOffset = gridOffset;
+                //prevGridSpacing = gridSpacing;
+                //prevGridOffset = gridOffset;
+                prevBorderSpacing = borderSpacing;
             }
         }
     }
@@ -216,7 +265,6 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     public void OnAfterDeserialize()
     {
         // Convert the serializable list into our unserializable array
-        Debug.Log(prevColumns + " ; " + prevRows);
         grid = new Node[prevColumns, prevRows];
         for (int i = 0; i < serializableGrid.Length; i++)
         {
