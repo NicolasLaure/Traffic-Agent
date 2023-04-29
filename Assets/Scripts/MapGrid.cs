@@ -42,9 +42,13 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     public GameObject defaultNode;
 
     //Previous values of the public variables, used to detect when one has changed
+    [SerializeField]
     int prevColumns = 3;
+    [SerializeField]
     int prevRows = 3;
+    [SerializeField]
     Vector2 prevGridSpacing = new Vector2(100, 100);
+    [SerializeField]
     Vector2 prevGridOffset = new Vector2(0, 0);
 
     //Public variables hidden from the Inspector
@@ -212,6 +216,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     public void OnAfterDeserialize()
     {
         // Convert the serializable list into our unserializable array
+        Debug.Log(prevColumns + " ; " + prevRows);
         grid = new Node[prevColumns, prevRows];
         for (int i = 0; i < serializableGrid.Length; i++)
         {
