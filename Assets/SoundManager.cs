@@ -7,9 +7,9 @@ public class SoundManager : MonoBehaviour
 {
     private static SoundManager _instance;
     [SerializeField] private List<SoundFile> sounds = new List<SoundFile>();
+    [SerializeField] private AudioSource[] SFXSources;
     [SerializeField] private bool generateArray = false;
 
-    public AudioSource SFX;
     public AudioSource Music;
 
     void Awake()
@@ -64,9 +64,17 @@ public class SoundManager : MonoBehaviour
             return false;
         else
         {
-            SFX.clip = playable;
-            SFX.Play();
+            bool played = false;
 
+            for (int i = 0; i < SFXSources.Length; i++)
+            {
+                if(!SFXSources[i].isPlaying && !played)
+                {
+                    played = true;
+                    SFXSources[i].clip = playable;
+                    SFXSources[i].Play();
+                }
+            }
             return true;
         }
     }
