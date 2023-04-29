@@ -45,7 +45,6 @@ public class NodeCycle : MonoBehaviour
 
     public void ChangeStreetLight(GameObject obj)
     {
-        Debug.LogError("sas");
          MapGrid.Node tempNode = new MapGrid.Node(MapGrid.GridState.ROAD, gridX, gridY, Instantiate(obj, mapGrid.gridParent.transform), mapGrid);
         tempNode.obj.name = nextType.GetComponent<NodeCycle>().nodeName + " (" + gridX + "; " + gridY + ")";
         //tempNode.obj.transform.localPosition = new Vector2(mapGrid.gridSpacing.x * gridX, mapGrid.gridSpacing.y * gridY * -1) + mapGrid.gridOffset;
