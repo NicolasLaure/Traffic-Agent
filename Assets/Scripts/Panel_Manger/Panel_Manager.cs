@@ -4,7 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Panel_Manager : MonoBehaviour
+public class Panel_Manager : Singleton<Panel_Manager>
 {
     List<Panel_Model> panels;
 
