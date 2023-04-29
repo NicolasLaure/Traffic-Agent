@@ -14,11 +14,18 @@ public class IconController : MonoBehaviour
     public void AddClick()
     {
         clickCount++;
+        StartCoroutine(timer());
 
         if (clickCount >= 2)
         {
             gameManager.GetComponent<PanelManager>().WindowInstantiate(windowPrefab);
             clickCount = 0;
         }
+    }
+
+    IEnumerator timer()
+    {
+        yield return new WaitForSeconds(1);
+        clickCount = 0;
     }
 }
