@@ -9,7 +9,9 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     public enum GridState
     {
         ROAD,
-        BUILDING
+        BUILDING,
+        TRAFFICLIGHTHOR,
+        TRAFFICLIGHTVER
     }
 
     [System.Serializable]
@@ -168,6 +170,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
                         rt.offsetMax = Vector2.zero;
                         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, nodeSize);
                         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, nodeSize);
+                        grid[i, j].obj.GetComponent<NodeCycle>().ChangeChildsSize(nodeSize);
                         tempGrid[i, j] = grid[i, j];
                     }
                     else
@@ -182,6 +185,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
                         rt.offsetMax = Vector2.zero;
                         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, nodeSize);
                         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, nodeSize);
+                        tempNode.obj.GetComponent<NodeCycle>().ChangeChildsSize(nodeSize);
                         tempGrid[i, j] = tempNode;
                     }
                 }
@@ -232,6 +236,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
                         rt.offsetMax = Vector2.zero;
                         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, nodeSize);
                         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, nodeSize);
+                        grid[i,j].obj.GetComponent<NodeCycle>().ChangeChildsSize(nodeSize);
                     }
                 }
                 //prevGridSpacing = gridSpacing;

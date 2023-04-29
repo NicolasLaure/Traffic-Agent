@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 643398491962026271}
   - component: {fileID: 8627787334544758953}
   m_Layer: 5
-  m_Name: debugRoadNode
+  m_Name: debugTLightVerNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.00000025431316, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -92,5 +92,5 @@ MonoBehaviour:
   mapGrid: {fileID: 0}
   gridX: 0
   gridY: 0
-  nodeName: Road
-  nextType: {fileID: 7238843006518684278, guid: 33f9c7e14cccf4d4b94d2642b2dc219b, type: 3}
+  nodeName: TrafficLightVer
+  nextType: {fileID: 6172953214760897821, guid: da007ea59f4a85841aadfe404726e941, type: 3}
