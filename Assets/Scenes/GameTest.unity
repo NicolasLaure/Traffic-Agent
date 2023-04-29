@@ -7140,15 +7140,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.10383387
       objectReference: {fileID: 0}
     - target: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.15743072
       objectReference: {fileID: 0}
     - target: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_AnchorMin.x
@@ -7156,7 +7156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.85
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_SizeDelta.x
@@ -7217,6 +7217,10 @@ PrefabInstance:
     - target: {fileID: 6820566299955536399, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_Name
       value: Moto
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473266028382952670, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
