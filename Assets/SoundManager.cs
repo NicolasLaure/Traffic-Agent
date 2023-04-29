@@ -9,12 +9,15 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private List<SoundFile> sounds = new List<SoundFile>();
     [SerializeField] private bool generateArray = false;
 
+    public AudioSource SFX;
+    public AudioSource Music;
+
     void Awake()
     {
 
         if (_instance == null)
         {
-
+            
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
@@ -24,6 +27,14 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+            PlayAudioClip(SoundCases.KeyboardPress);
+        if (Input.GetKeyDown(KeyCode.D))
+            PlayAudioClip(SoundCases.Error);
+    }
+
     private void OnValidate()
     {
         if (generateArray)
@@ -31,16 +42,38 @@ public class SoundManager : MonoBehaviour
             sounds.Clear();
             for (int i = 0; i < (int)SoundCases.Count; i++)
             {
-                sounds.Add(new SoundFile( (SoundCases)i, null ));
+                sounds.Add(new SoundFile((SoundCases)i, null));
             }
             generateArray = false;
-        }  
+        }
         else
             return;
     }
 
+    public bool PlayAudioClip(SoundCases soundCase)
+    {
+        AudioClip playable = null;
+
+        for (int i = 0; i < sounds.Count; i++)
+        {
+            if (sounds[i].soundCase == soundCase)
+                playable = sounds[i].audioClip;
+        }
+
+        if (playable == null)
+            return false;
+        else
+        {
+            SFX.clip = playable;
+            SFX.Play();
+
+            return true;
+        }
+    }
+
+
 }
-enum SoundCases
+public enum SoundCases
 {
     ClickError,
     Error,
@@ -63,7 +96,7 @@ enum SoundCases
 }
 
 [System.Serializable]
-struct SoundFile
+public struct SoundFile
 {
     public SoundCases soundCase;
     public AudioClip audioClip;
