@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System;
 public class PanelController : MonoBehaviour
 {
+    [SerializeField] GameObject mousePos;
     public event Action Drag;
 
     public void WindowMove()
     {
-        transform.position = Input.mousePosition;
+        transform.position = mousePos.transform.position;
         Drag.Invoke();
     }
 }
