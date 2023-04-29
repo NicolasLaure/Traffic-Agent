@@ -28,4 +28,29 @@ public class Panel_Manager : Singleton<Panel_Manager>
             Debug.LogWarning($"Trying to use a panel ID = {current_panelID}, but this is not found in panels");
         }
     }
+
+    public void HideLastPanel() 
+    {
+        if (AnyPanelShowing())
+        {
+            // Get the last element added to the queue
+            var lastPanel = _queue.Dequeue();
+
+            Destroy(lastPanel.panelInstace);
+        }
+    }
+
+
+    // Returns true if any panel is showing
+    public bool AnyPanelShowing() 
+    {
+        return GetAmountPanelsInQueue() > 0;
+    }
+
+
+    // Returns how many panels we have in queue
+    public int GetAmountPanelsInQueue() 
+    {
+        return _queue.Count;
+    }
 }
