@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 
+#if UNITY_EDITOR
 class CustomEditorKeybinds : EditorWindow
 {
     //When the keybind is pressed, verifies if the circumstances are correct for the keybind to be run
@@ -28,3 +29,4 @@ class CustomEditorKeybinds : EditorWindow
         Selection.objects = newSelection.ToArray();
     }
 }
+#endif
