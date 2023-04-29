@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Panel_Manager : Singleton<Panel_Manager>
 {
-    List<Panel_Model> panels;
+    [SerializeField] List<Panel_Model> panels;
 
     // This holds all of our instances
     private Queue<Panel_Instance_Model> _queue = new Queue<Panel_Instance_Model>();
@@ -17,6 +17,8 @@ public class Panel_Manager : Singleton<Panel_Manager>
         if (panel_Model != null) 
         {
             var newInstancePanel = Instantiate(panel_Model.panelPrefab,transform);
+
+            newInstancePanel.transform.localPosition = Vector3.zero;
 
             // Add this new Panel to the queue
             _queue.Enqueue(new Panel_Instance_Model {panelID = current_panelID,panelInstace = newInstancePanel});

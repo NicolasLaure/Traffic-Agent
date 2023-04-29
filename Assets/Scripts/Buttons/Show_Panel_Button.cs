@@ -4,7 +4,7 @@ public class Show_Panel_Button : MonoBehaviour
 {
     // The ID of the panel we want to show
     public string panelID;
-    [SerializeField] private Panel_Manager _panel_Manager;
+    private Panel_Manager _panel_Manager;
 
     private void Start()
     {
