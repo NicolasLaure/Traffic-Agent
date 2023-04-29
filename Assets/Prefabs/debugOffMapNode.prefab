@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6172953214760897821
+--- !u!1 &8781245792357579859
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 976025307383806999}
-  - component: {fileID: 5476234696406148880}
-  - component: {fileID: 4121632482176732788}
-  - component: {fileID: 1767383289808723732}
+  - component: {fileID: 2448961366994128217}
+  - component: {fileID: 7460356591125337694}
+  - component: {fileID: 1532638242223636282}
+  - component: {fileID: 7643953300561694348}
   m_Layer: 5
-  m_Name: debugBuildingNode
+  m_Name: debugOffMapNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &976025307383806999
+--- !u!224 &2448961366994128217
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6172953214760897821}
+  m_GameObject: {fileID: 8781245792357579859}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -39,28 +39,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &5476234696406148880
+--- !u!222 &7460356591125337694
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6172953214760897821}
+  m_GameObject: {fileID: 8781245792357579859}
   m_CullTransparentMesh: 1
---- !u!114 &4121632482176732788
+--- !u!114 &1532638242223636282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6172953214760897821}
+  m_GameObject: {fileID: 8781245792357579859}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.8484359, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -77,13 +77,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1767383289808723732
+--- !u!114 &7643953300561694348
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6172953214760897821}
+  m_GameObject: {fileID: 8781245792357579859}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c2718857c0f63b4db51f80af5d1e8ca, type: 3}
@@ -92,7 +92,7 @@ MonoBehaviour:
   mapGrid: {fileID: 0}
   gridX: 0
   gridY: 0
-  nodeName: Building
-  nodeType: 1
-  nextType: {fileID: 8781245792357579859, guid: 20e2a60169eda534fbe1dcf511190dd9, type: 3}
+  nodeName: Road
+  nodeType: 4
+  nextType: {fileID: 7238843006518684278, guid: 30f7057e65ba1a44890582eeb66b96f0, type: 3}
   childs: []

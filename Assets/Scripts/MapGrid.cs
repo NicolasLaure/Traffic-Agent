@@ -11,7 +11,8 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
         ROAD,
         BUILDING,
         TRAFFICLIGHTHOR,
-        TRAFFICLIGHTVER
+        TRAFFICLIGHTVER,
+        OFF_MAP
     }
 
     [System.Serializable]
@@ -175,7 +176,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
                     }
                     else
                     {
-                        Node tempNode = new Node(GridState.ROAD, i, j, Instantiate(defaultNode, gridParent.transform), this);
+                        Node tempNode = new Node(defaultNode.GetComponent<NodeCycle>().nodeType, i, j, Instantiate(defaultNode, gridParent.transform), this);
                         tempNode.obj.name = tempNode.obj.GetComponent<NodeCycle>().nodeName + " (" + i + "; " + j + ")";
                         //tempNode.obj.transform.localPosition = new Vector2(gridSpacing.x * i, gridSpacing.y * j * -1) + gridOffset;
                         RectTransform rt = tempNode.obj.GetComponent<RectTransform>();

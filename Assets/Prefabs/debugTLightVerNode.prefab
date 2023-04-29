@@ -93,4 +93,6 @@ MonoBehaviour:
   gridX: 0
   gridY: 0
   nodeName: TrafficLightVer
+  nodeType: 3
   nextType: {fileID: 6172953214760897821, guid: da007ea59f4a85841aadfe404726e941, type: 3}
+  childs: []

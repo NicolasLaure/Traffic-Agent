@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using System.Collections.Generic;
 
 class CustomEditorKeybinds : EditorWindow
 {
@@ -7,13 +8,23 @@ class CustomEditorKeybinds : EditorWindow
     [MenuItem("Custom/Cycle Node _g", true)]
     static bool ValidateCycleNode()
     {
-        return Selection.activeGameObject != null && Selection.activeGameObject.GetComponent<NodeCycle>() != null;
+        GameObject[] selected = Selection.gameObjects;
+        return (selected.Length > 0);
     }
 
     //If the keybind is pressed, and the circumstances have been verified, run the following code
     [MenuItem("Custom/Cycle Node _g")]
     static void CycleNode()
     {
-        Selection.activeGameObject.GetComponent<NodeCycle>().Cycle();
+        List<GameObject> newSelection = new List<GameObject>();
+        foreach (GameObject selected in Selection.gameObjects)
+        {
+            NodeCycle nodeCycle = selected.GetComponent<NodeCycle>();
+            if (nodeCycle != null)
+            {
+                newSelection.Add(nodeCycle.Cycle());
+            }
+        }
+        Selection.objects = newSelection.ToArray();
     }
 }

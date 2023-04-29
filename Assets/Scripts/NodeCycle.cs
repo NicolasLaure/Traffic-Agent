@@ -12,14 +12,15 @@ public class NodeCycle : MonoBehaviour
     public int gridY;
 
     public string nodeName;
+    public MapGrid.GridState nodeType;
     public GameObject nextType;
 
     public GameObject[] childs;
     
 #if UNITY_EDITOR
-    public void Cycle()
+    public GameObject Cycle()
     {
-        MapGrid.Node tempNode = new MapGrid.Node(MapGrid.GridState.ROAD, gridX, gridY, Instantiate(nextType, mapGrid.gridParent.transform), mapGrid);
+        MapGrid.Node tempNode = new MapGrid.Node(nextType.GetComponent<NodeCycle>().nodeType, gridX, gridY, Instantiate(nextType, mapGrid.gridParent.transform), mapGrid);
         tempNode.obj.name = nextType.GetComponent<NodeCycle>().nodeName + " (" + gridX + "; " + gridY + ")";
         //tempNode.obj.transform.localPosition = new Vector2(mapGrid.gridSpacing.x * gridX, mapGrid.gridSpacing.y * gridY * -1) + mapGrid.gridOffset;
         RectTransform rt = tempNode.obj.GetComponent<RectTransform>();
@@ -32,6 +33,7 @@ public class NodeCycle : MonoBehaviour
         tempNode.obj.GetComponent<NodeCycle>().ChangeChildsSize(mapGrid.nodeSize);
         mapGrid.grid[gridX, gridY] = tempNode;
         StartCoroutine(Destroy(gameObject));
+        return tempNode.obj;
     }
 
     IEnumerator Destroy(GameObject go)
