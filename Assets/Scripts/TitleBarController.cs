@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PanelDrag : MonoBehaviour
+public class TitleBarController : MonoBehaviour
 {
     private void Start()
     {
-        transform.parent.GetComponent<PanelController>().Drag += MovePanel;
+        transform.parent.GetComponent<WindowController>().OnDrag += MovePanel;
     }
 
     private void MovePanel()
     {
-        Debug.Log("me muevo");
-        //  transform.parent.position = 
+
     }
 
 }
