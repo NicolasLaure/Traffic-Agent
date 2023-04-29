@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Show_Panel_Button : MonoBehaviour
+public class Panel_Button : MonoBehaviour
 {
     // The ID of the panel we want to show
     public string panelID;
@@ -13,5 +13,10 @@ public class Show_Panel_Button : MonoBehaviour
     public void DoShowPanel() 
     {
         _panel_Manager.ShowPanel(panelID);
+    }
+
+    public void DoHidePanel() 
+    {
+        _panel_Manager.HideLastPanel();
     }
 }
