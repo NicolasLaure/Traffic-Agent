@@ -22,7 +22,6 @@ public class NodeCycle : MonoBehaviour
     {
         MapGrid.Node tempNode = new MapGrid.Node(nextType.GetComponent<NodeCycle>().nodeType, gridX, gridY, Instantiate(nextType, mapGrid.gridParent.transform), mapGrid);
         tempNode.obj.name = nextType.GetComponent<NodeCycle>().nodeName + " (" + gridX + "; " + gridY + ")";
-        //tempNode.obj.transform.localPosition = new Vector2(mapGrid.gridSpacing.x * gridX, mapGrid.gridSpacing.y * gridY * -1) + mapGrid.gridOffset;
         RectTransform rt = tempNode.obj.GetComponent<RectTransform>();
         rt.anchorMin = mapGrid.topLeft + new Vector2(gridX * mapGrid.horizontalSpacing, gridY * mapGrid.verticalSpacing * -1);
         rt.anchorMax = rt.anchorMin;
@@ -45,9 +44,8 @@ public class NodeCycle : MonoBehaviour
 
     public void ChangeStreetLight(GameObject obj)
     {
-         MapGrid.Node tempNode = new MapGrid.Node(MapGrid.GridState.ROAD, gridX, gridY, Instantiate(obj, mapGrid.gridParent.transform), mapGrid);
+         MapGrid.Node tempNode = new MapGrid.Node(obj.GetComponent<NodeCycle>().nodeType, gridX, gridY, Instantiate(obj, mapGrid.gridParent.transform), mapGrid);
         tempNode.obj.name = nextType.GetComponent<NodeCycle>().nodeName + " (" + gridX + "; " + gridY + ")";
-        //tempNode.obj.transform.localPosition = new Vector2(mapGrid.gridSpacing.x * gridX, mapGrid.gridSpacing.y * gridY * -1) + mapGrid.gridOffset;
         RectTransform rt = tempNode.obj.GetComponent<RectTransform>();
         rt.anchorMin = mapGrid.topLeft + new Vector2(gridX * mapGrid.horizontalSpacing, gridY * mapGrid.verticalSpacing * -1);
         rt.anchorMax = rt.anchorMin;

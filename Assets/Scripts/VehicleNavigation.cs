@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class VehicleNavigation : MonoBehaviour
 {
+    [System.Serializable]
+    public struct ConditionalBlocker
+    {
+        public MapGrid.GridState blocker;
+        public Direction passCondition;
+    }
+
     public Vector2Int gridStart;
     public float movementSpeed = 10;
     public Direction movementDir;
-    public MapGrid.GridState[] blockers;
+    public ConditionalBlocker[] blockers;
     public MapGrid.GridState[] destroyers;
     public float deathDist = 0.5f;
 
@@ -64,7 +71,7 @@ public class VehicleNavigation : MonoBehaviour
         {
             //If the destination is blocked, then check if it's been unblocked
             case "blocked":
-                if (IsNextNodeBlocker(movementDir))
+                if (IsNextNodeBlocking(movementDir))
                 {
                     Blocked();
                 }
@@ -85,7 +92,7 @@ public class VehicleNavigation : MonoBehaviour
 
             //If a new movement is beginning, check ahead to see if it's allowed
             case "beginMovement":
-                if (IsNextNodeBlocker(movementDir))
+                if (IsNextNodeBlocking(movementDir))
                 {
                     Blocked();
                 }
@@ -124,12 +131,28 @@ public class VehicleNavigation : MonoBehaviour
     }
 
     //Checks to see if the desired destination blocks this vehicle
+    public bool IsNextNodeBlocking(Direction dir)
+    {
+        MapGrid.GridState nextNodeType = GetNode(dir);
+
+        foreach (ConditionalBlocker t in blockers)
+        {
+            if (nextNodeType == t.blocker && dir == t.passCondition)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Checks to see if the desired destination is a blocker, ignoring the condition
     public bool IsNextNodeBlocker(Direction dir)
     {
         MapGrid.GridState nextNodeType = GetNode(dir);
-        foreach (MapGrid.GridState t in blockers)
+
+        foreach (ConditionalBlocker t in blockers)
         {
-            if (nextNodeType == t)
+            if (nextNodeType == t.blocker)
             {
                 return true;
             }
@@ -141,6 +164,12 @@ public class VehicleNavigation : MonoBehaviour
     public bool IsNextNodeDestroyer(Direction dir)
     {
         MapGrid.GridState nextNodeType = GetNode(dir);
+
+        if (nextNodeType == MapGrid.GridState.TRAFFICLIGHTHOR && (dir == Direction.LEFT || dir == Direction.RIGHT))
+            return false;
+        else if (nextNodeType == MapGrid.GridState.TRAFFICLIGHTVER && (dir == Direction.UP || dir == Direction.DOWN))
+            return false;
+
         foreach (MapGrid.GridState t in destroyers)
         {
             if (nextNodeType == t)
