@@ -5,7 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - SystemPanel
+<<<<<<< HEAD
   - Game Window
+=======
+  - GameWindow
+  - AdGenerator
+  - SpawnPoint
+>>>>>>> Nico
   layers:
   - Default
   - TransparentFX

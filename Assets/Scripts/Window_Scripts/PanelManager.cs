@@ -9,7 +9,6 @@ public class PanelManager : MonoBehaviour
         if (!windowPrefab.CompareTag("GameWindow"))
         {
         GameObject newWindow =  Instantiate(windowPrefab, GameObject.Find("Canvas").transform);
-
         }
         else
         {

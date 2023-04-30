@@ -454,7 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56cfb42d9a52b0e4b820ad739086076b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 0}
+  panel: {fileID: 7398638173151565713}
 --- !u!1 &3441600854710176279
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,7 +684,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 4098742602747196099}
+        - m_Target: {fileID: 1040322160838447107}
           m_TargetAssemblyTypeName: WindowController, Assembly-CSharp
           m_MethodName: DestroyWindow
           m_Mode: 2
@@ -707,9 +707,9 @@ GameObject:
   - component: {fileID: 4098742602747196111}
   - component: {fileID: 4098742602747196096}
   - component: {fileID: 4098742602747196097}
-  - component: {fileID: 4098742602747196099}
+  - component: {fileID: 1040322160838447107}
   m_Layer: 5
-  m_Name: SystemWindowPrefab
+  m_Name: SystemWindowPrefab 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -776,7 +776,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4098742602747196099
+--- !u!114 &1040322160838447107
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -785,7 +785,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4098742602747196108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f62a1e27db42be24c89f1d8e743342cd, type: 3}
+  m_Script: {fileID: 11500000, guid: a74c39b1d1c5c9143a983673e5d6c231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4098742603209980330
@@ -799,8 +799,8 @@ GameObject:
   - component: {fileID: 4098742603209980333}
   - component: {fileID: 4098742603209980320}
   - component: {fileID: 4098742603209980321}
-  - component: {fileID: 4098742603209980334}
   - component: {fileID: 4098742603209980335}
+  - component: {fileID: 2098533945667244830}
   m_Layer: 5
   m_Name: Title Bar
   m_TagString: Untagged
@@ -867,18 +867,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4098742603209980334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4098742603209980330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcae0106d06a16b4e992867481a411f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4098742603209980335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -896,7 +884,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 4098742602747196099}
+        - m_Target: {fileID: 1040322160838447107}
           m_TargetAssemblyTypeName: WindowController, Assembly-CSharp
           m_MethodName: WindowMove
           m_Mode: 1
@@ -912,7 +900,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 4098742602747196099}
+        - m_Target: {fileID: 1040322160838447107}
           m_TargetAssemblyTypeName: WindowController, Assembly-CSharp
           m_MethodName: XAxisOffset
           m_Mode: 1
@@ -924,8 +912,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 4098742602747196099}
-          m_TargetAssemblyTypeName: PanelController, Assembly-CSharp
+        - m_Target: {fileID: 1040322160838447107}
+          m_TargetAssemblyTypeName: WindowController, Assembly-CSharp
           m_MethodName: YAxisOffset
           m_Mode: 1
           m_Arguments:
@@ -936,6 +924,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &2098533945667244830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098742603209980330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 644bc5361f6238b46b6c55f8fd5fff32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7398638173151565713
 GameObject:
   m_ObjectHideFlags: 0
