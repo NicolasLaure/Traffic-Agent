@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 283459756}
   - component: {fileID: 283459758}
   - component: {fileID: 283459757}
+  - component: {fileID: 283459760}
   m_Layer: 5
   m_Name: MousePointer
   m_TagString: Untagged
@@ -405,7 +406,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.017811775, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -415,6 +416,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!222 &283459760
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283459755}
+  m_CullTransparentMesh: 1
 --- !u!1 &965399522
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,7 +704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6310849, g: 0.8018868, b: 0.7107925, a: 1}
+  m_Color: {r: 0.17061226, g: 0.764151, b: 0.44667676, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

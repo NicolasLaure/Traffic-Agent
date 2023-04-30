@@ -13,7 +13,7 @@ public class IconController : MonoBehaviour
     }
     public void AddClick()
     {
-        SoundManager._instance.PlayAudioClip(SoundCases.Click);
+        //SoundManager._instance.PlayAudioClip(SoundCases.Click);
         clickCount++;
         StartCoroutine(timer());
 
