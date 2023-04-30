@@ -44,6 +44,8 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
 
     public void Setup()
     {
+        SoundManager._instance?.PlayAudioClip(SoundCases.MotorbikeEngine, true);
+
         //In order to have the player vehicle leave from a building, this controls the vehicle for the player for 1 node
         delivering = true;
         if (vehicleNavigation.movementDir == leftTurnConversions[startDir])

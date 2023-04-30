@@ -50,7 +50,7 @@ public class SoundManager : MonoBehaviour
             return;
     }
 
-    public bool PlayAudioClip(SoundCases soundCase)
+    public bool PlayAudioClip(SoundCases soundCase, bool loop = false)
     {
         AudioClip playable = null;
 
@@ -71,6 +71,9 @@ public class SoundManager : MonoBehaviour
                 if(!SFXSources[i].isPlaying && !played)
                 {
                     played = true;
+                    if (loop)
+                        SFXSources[i].loop = true;
+
                     SFXSources[i].clip = playable;
                     SFXSources[i].Play();
                 }
