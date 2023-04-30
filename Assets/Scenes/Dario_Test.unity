@@ -207,6 +207,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &553455068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 553455069}
+  - component: {fileID: 553455070}
+  m_Layer: 5
+  m_Name: ObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &553455069
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553455068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1491490112}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &553455070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553455068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d4a714c3448fc34cbae1b5af0eeb24f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabForPool:
+  - {fileID: 2430104110414497083, guid: a6f78ddc724a42342bec843b3827c0f7, type: 3}
 --- !u!1 &587463299
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,9 +383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ec48cb7e48ebb942b47e69107449d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panels:
-  - panelID: Window_Test
-    panelPrefab: {fileID: 2430104110414497083, guid: a6f78ddc724a42342bec843b3827c0f7, type: 3}
 --- !u!1 &1096419352
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,6 +631,7 @@ RectTransform:
   - {fileID: 611400228}
   - {fileID: 1096419354}
   - {fileID: 2105655633}
+  - {fileID: 553455069}
   m_Father: {fileID: 1377379792}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

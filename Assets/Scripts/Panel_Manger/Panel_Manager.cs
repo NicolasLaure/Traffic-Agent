@@ -6,22 +6,26 @@ using UnityEngine;
 
 public class Panel_Manager : Singleton<Panel_Manager>
 {
-    [SerializeField] List<Panel_Model> panels;
 
     // This holds all of our instances
     private List<Panel_Instance_Model> _ListInstances = new List<Panel_Instance_Model>();
+
+    // Pool of panels
+    private Object_Pool _object_Pool;
+
+    private void Start()
+    {
+        _object_Pool = Object_Pool.Instance;
+    }
+
     public void ShowPanel(string current_panelID) 
     {
-        Panel_Model panel_Model = panels.FirstOrDefault(panel => panel.panelID == current_panelID);
+        GameObject panel_Instance = _object_Pool.GetObjectFromPool(current_panelID);
 
-        if (panel_Model != null) 
+        if (panel_Instance != null) 
         {
-            var newInstancePanel = Instantiate(panel_Model.panelPrefab,transform);
-
-            newInstancePanel.transform.localPosition = Vector3.zero;
-
-            // Add this new Panel to the queue
-            _ListInstances.Add(new Panel_Instance_Model {panelID = current_panelID,panelInstace = newInstancePanel});
+            // Add this new Panel to the list
+            _ListInstances.Add(new Panel_Instance_Model {panelID = current_panelID,panelInstace = panel_Instance});
         }
         else
         {
@@ -37,7 +41,7 @@ public class Panel_Manager : Singleton<Panel_Manager>
             var lastPanel = _ListInstances[_ListInstances.Count - 1];
             _ListInstances.Remove(lastPanel);
 
-            Destroy(lastPanel.panelInstace);
+            _object_Pool.PoolObject(lastPanel.panelInstace);
         }
     }
 
