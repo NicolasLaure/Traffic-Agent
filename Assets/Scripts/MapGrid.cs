@@ -109,6 +109,17 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     void _OnValidate()
     {
         if (this == null) return;
+        if (Mathf.Approximately((float)(gameObject.GetComponent<RectTransform>().rect.width / 1.252), (float)(gameObject.GetComponent<RectTransform>().rect.height / 0.794)) == false)
+        {
+            Debug.LogError("Error: Game panel does not have the ratio of 1252 x 794");
+            Debug.Log((float)(gameObject.GetComponent<RectTransform>().rect.width / 1.252));
+            Debug.Log((float)(gameObject.GetComponent<RectTransform>().rect.height / 0.794));
+        }
+        else
+        {
+            Debug.Log("Congratulations, the game panel has the correct ratio of 1252 x 794");
+        }
+
         //Raise an error if the default node hasn't been assigned
         if (defaultNode == null)
         {

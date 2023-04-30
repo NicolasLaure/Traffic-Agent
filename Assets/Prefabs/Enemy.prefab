@@ -89,9 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 924b99ce6f9afc34ab4a28d6aa61c207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridStart: {x: 1, y: 1}
-  movementSpeed: 0.1
-  movementDir: 1
+  gridStart: {x: 7, y: 1}
+  movementSpeed: 50
+  movementDir: 2
   blockers:
   - blocker: 3
     passCondition: 0
@@ -103,6 +103,9 @@ MonoBehaviour:
     passCondition: 3
   destroyers: 0100000004000000
   deathDist: 0.5
+  destroysVehicles: 1
+  respawns: 1
+  respawnTime: 1
   mapGrid: {fileID: 0}
   reachedNode: 0
   curNode: {x: 0, y: 0}

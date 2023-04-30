@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 87500265}
   - component: {fileID: 87500267}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: GamePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -373,14 +373,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2916,31 +2916,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: gridStart.y
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: movementDir
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: movementSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destroysVehicles
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destroyers.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destroyers.Array.data[1]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destroyers.Array.data[2]
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_Pivot.x
@@ -3029,10 +3009,6 @@ PrefabInstance:
     - target: {fileID: 6820566299955536399, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_Name
       value: Moto (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6820566299955536399, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
@@ -5425,22 +5401,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 87500264}
     m_Modifications:
-    - target: {fileID: 249316895226085328, guid: 6e5e370b4e5f0ca43919a76c66440493, type: 3}
-      propertyPath: respawns
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 249316895226085328, guid: 6e5e370b4e5f0ca43919a76c66440493, type: 3}
-      propertyPath: gridStart.x
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 249316895226085328, guid: 6e5e370b4e5f0ca43919a76c66440493, type: 3}
-      propertyPath: movementDir
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 249316895226085328, guid: 6e5e370b4e5f0ca43919a76c66440493, type: 3}
-      propertyPath: movementSpeed
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 4547272883021176270, guid: 6e5e370b4e5f0ca43919a76c66440493, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5528,10 +5488,6 @@ PrefabInstance:
     - target: {fileID: 5731103025942124019, guid: 6e5e370b4e5f0ca43919a76c66440493, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5731103025942124019, guid: 6e5e370b4e5f0ca43919a76c66440493, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e5e370b4e5f0ca43919a76c66440493, type: 3}
@@ -7586,35 +7542,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: gridStart.x
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: gridStart.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: movementDir
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: movementSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destroysVehicles
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destroyers.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destroyers.Array.data[1]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destroyers.Array.data[2]
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_Pivot.x
