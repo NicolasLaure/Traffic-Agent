@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
-    private static SoundManager _instance;
+    public static SoundManager _instance;
     [SerializeField] private List<SoundFile> sounds = new List<SoundFile>();
     [SerializeField] private AudioSource[] SFXSources;
     [SerializeField] private bool generateArray = false;
