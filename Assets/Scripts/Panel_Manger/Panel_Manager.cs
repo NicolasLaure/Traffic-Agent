@@ -9,7 +9,7 @@ public class Panel_Manager : Singleton<Panel_Manager>
     [SerializeField] List<Panel_Model> panels;
 
     // This holds all of our instances
-    private Queue<Panel_Instance_Model> _queue = new Queue<Panel_Instance_Model>();
+    private List<Panel_Instance_Model> _ListInstances = new List<Panel_Instance_Model>();
     public void ShowPanel(string current_panelID) 
     {
         Panel_Model panel_Model = panels.FirstOrDefault(panel => panel.panelID == current_panelID);
@@ -21,7 +21,7 @@ public class Panel_Manager : Singleton<Panel_Manager>
             newInstancePanel.transform.localPosition = Vector3.zero;
 
             // Add this new Panel to the queue
-            _queue.Enqueue(new Panel_Instance_Model {panelID = current_panelID,panelInstace = newInstancePanel});
+            _ListInstances.Add(new Panel_Instance_Model {panelID = current_panelID,panelInstace = newInstancePanel});
         }
         else
         {
@@ -33,8 +33,9 @@ public class Panel_Manager : Singleton<Panel_Manager>
     {
         if (AnyPanelShowing())
         {
-            // Get the last element added to the queue
-            var lastPanel = _queue.Dequeue();
+            // Get the last element added to the list
+            var lastPanel = _ListInstances[_ListInstances.Count - 1];
+            _ListInstances.Remove(lastPanel);
 
             Destroy(lastPanel.panelInstace);
         }
@@ -48,9 +49,9 @@ public class Panel_Manager : Singleton<Panel_Manager>
     }
 
 
-    // Returns how many panels we have in queue
+    // Returns how many panels we have in the list
     public int GetAmountPanelsInQueue() 
     {
-        return _queue.Count;
+        return _ListInstances.Count;
     }
 }
