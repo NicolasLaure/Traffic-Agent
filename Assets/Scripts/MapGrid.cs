@@ -39,6 +39,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     }
 
     //Public variables in the Inspector
+    public int playerCount = 0;
     public bool clearGrid = true;
     public int columns = 3;
     public int rows = 3;
@@ -80,6 +81,11 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     [HideInInspector]
     public float verticalSpacing;
 
+    void Start()
+    {
+        DeliveryGame.instance.winCondition = playerCount * 2;
+    }
+
     public void CalculateSpacing()
     {
         Vector2 workingArea = new Vector2((1 - 2 * borderSpacing.x / 100.0f), (1 - 2 * borderSpacing.y / 100.0f));
@@ -109,6 +115,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     void _OnValidate()
     {
         if (this == null) return;
+        /*
         if (Mathf.Approximately((float)(gameObject.GetComponent<RectTransform>().rect.width / 1.252), (float)(gameObject.GetComponent<RectTransform>().rect.height / 0.794)) == false)
         {
             Debug.LogError("Error: Game panel does not have the ratio of 1252 x 794");
@@ -119,6 +126,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
         {
             Debug.Log("Congratulations, the game panel has the correct ratio of 1252 x 794");
         }
+        */
 
         //Raise an error if the default node hasn't been assigned
         if (defaultNode == null)
@@ -319,6 +327,13 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     {
         go.SetActive(false);
         yield return new WaitForSeconds(respawnTime);
+        Vector2Int start = go.GetComponent<VehicleNavigation>().gridStart;
+        Vector2Int next = VehicleNavigation.directions[go.GetComponent<VehicleNavigation>().movementDir] + start;
+        while (grid[start.x, start.y].gridState == GridState.OCCUPIED || grid[start.x, start.y].gridState == GridState.OCCUPIED_WEAK ||
+            grid[next.x, next.y].gridState == GridState.OCCUPIED || grid[next.x, next.y].gridState == GridState.OCCUPIED_WEAK)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
         go.SetActive(true);
         go.GetComponent<VehicleNavigation>().Start();
     }

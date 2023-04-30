@@ -6,9 +6,14 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(VehicleNavigation))]
 public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
 {
+    public Vector2Int destination;
+    public float deliveryTime;
+
     VehicleNavigation vehicleNavigation;
     bool turnLeft = false;
     bool turnRight = false;
+
+    bool returning = false;
 
     Dictionary<VehicleNavigation.Direction, VehicleNavigation.Direction> leftTurnConversions = new Dictionary<VehicleNavigation.Direction, VehicleNavigation.Direction> {
         {VehicleNavigation.Direction.UP, VehicleNavigation.Direction.LEFT },
@@ -52,6 +57,34 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
     {
         if (vehicleNavigation.reachedNode)
         {
+            if (vehicleNavigation.curNode == destination)
+            {
+                if (returning)
+                {
+                    //Returned back to the start
+                    DeliveryGame.instance.winCondition--;
+                    if (DeliveryGame.instance.winCondition == 0)
+                    {
+                        DeliveryGame.instance.EndGame();
+                    }
+
+                    vehicleNavigation.mapGrid.grid[vehicleNavigation.curNode.x, vehicleNavigation.curNode.y].obj.GetComponent<NodeCycle>().SetWeakOccupied(false, gameObject);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    //Reached the destination
+                    DeliveryGame.instance.winCondition--;
+                    returning = true;
+                    Vector2Int temp = vehicleNavigation.gridStart;
+                    vehicleNavigation.gridStart = destination;
+                    destination = temp;
+                    vehicleNavigation.movementDir = leftTurnConversions[leftTurnConversions[vehicleNavigation.movementDir]];
+                    vehicleNavigation.mapGrid.grid[vehicleNavigation.curNode.x, vehicleNavigation.curNode.y].obj.GetComponent<NodeCycle>().SetWeakOccupied(false, gameObject);
+                    vehicleNavigation.mapGrid.RespawnVehicle(gameObject, deliveryTime);
+                }
+            }
+
             if (turnLeft)
             {
                 if (vehicleNavigation.IsNextNodeDestroyer(leftTurnConversions[vehicleNavigation.movementDir]) == false)
