@@ -1,5 +1,5 @@
 public enum Panel_Behaviour 
 {
-    KEEP_PREVIOUS;
-    HIDE_PREVIOUS;
+    KEEP_PREVIOUS,
+    HIDE_PREVIOUS
 }
