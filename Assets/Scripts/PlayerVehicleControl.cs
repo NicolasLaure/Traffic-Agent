@@ -2,14 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(VehicleNavigation))]
 public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
 {
+    [System.Serializable]
+    public struct SpritesContainer
+    {
+        public Sprite defaultSprite;
+        public Sprite up;
+        public Sprite upLeft;
+        public Sprite upRight;
+        public Sprite down;
+        public Sprite downLeft;
+        public Sprite downRight;
+        public Sprite left;
+        public Sprite leftLeft;
+        public Sprite leftRight;
+        public Sprite right;
+        public Sprite rightLeft;
+        public Sprite rightRight;
+    }
+
     public Vector2Int destination;
     public float deliveryTime;
     public VehicleNavigation.Direction startDir;
     public VehicleNavigation.Direction destinationDir;
+    public SpritesContainer sprites;
+
     VehicleNavigation.Direction savedDir;
 
     VehicleNavigation vehicleNavigation;
@@ -148,5 +169,53 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
                 }
             }
         }
+        SwitchImage(vehicleNavigation.movementDir, turnLeft, turnRight);
+    }
+
+    public void SwitchImage(VehicleNavigation.Direction dir, bool left, bool right)
+    {
+        switch (dir)
+        {
+            case VehicleNavigation.Direction.UP:
+                if (left)
+                    SwitchImage(sprites.upLeft);
+                else if (right)
+                    SwitchImage(sprites.upRight);
+                else
+                    SwitchImage(sprites.up);
+                break;
+            case VehicleNavigation.Direction.DOWN:
+                if (left)
+                    SwitchImage(sprites.downLeft);
+                else if (right)
+                    SwitchImage(sprites.downRight);
+                else
+                    SwitchImage(sprites.down);
+                break;
+            case VehicleNavigation.Direction.LEFT:
+                if (left)
+                    SwitchImage(sprites.leftLeft);
+                else if (right)
+                    SwitchImage(sprites.leftRight);
+                else
+                    SwitchImage(sprites.left);
+                break;
+            case VehicleNavigation.Direction.RIGHT:
+                if (left)
+                    SwitchImage(sprites.rightLeft);
+                else if (right)
+                    SwitchImage(sprites.rightRight);
+                else
+                    SwitchImage(sprites.right);
+                break;
+            default:
+                SwitchImage(sprites.defaultSprite);
+                break;
+        }
+    }
+
+    public void SwitchImage(Sprite img)
+    {
+        gameObject.GetComponent<Image>().sprite = img;
     }
 }
