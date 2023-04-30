@@ -329,8 +329,9 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
         yield return new WaitForSeconds(respawnTime);
         Vector2Int start = go.GetComponent<VehicleNavigation>().gridStart;
         Vector2Int next = VehicleNavigation.directions[go.GetComponent<VehicleNavigation>().movementDir] + start;
-        while (grid[start.x, start.y].gridState == GridState.OCCUPIED || grid[start.x, start.y].gridState == GridState.OCCUPIED_WEAK ||
-            grid[next.x, next.y].gridState == GridState.OCCUPIED || grid[next.x, next.y].gridState == GridState.OCCUPIED_WEAK)
+        while (grid[start.x, start.y].gridState == GridState.OCCUPIED || grid[start.x, start.y].gridState == GridState.OCCUPIED_WEAK
+            || grid[next.x, next.y].gridState == GridState.OCCUPIED || grid[next.x, next.y].gridState == GridState.OCCUPIED_WEAK
+            )
         {
             yield return new WaitForSeconds(0.1f);
         }
