@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8473266028382952670}
   - component: {fileID: 1322566643538184237}
   - component: {fileID: 1322566643538184236}
+  - component: {fileID: 4536721366941571889}
   m_Layer: 5
   m_Name: Moto
   m_TagString: Untagged
@@ -95,19 +96,19 @@ MonoBehaviour:
   startDir: 3
   destinationDir: 1
   sprites:
-    defaultSprite: {fileID: 21300000, guid: 8e3a8a4a5c7b62549b8caedb963d274f, type: 3}
-    up: {fileID: 21300000, guid: 16c9cd7c397472e409d245b57b4a8a29, type: 3}
-    upLeft: {fileID: 21300000, guid: afa8a2d42a3f1304ca6e50bc2046af6f, type: 3}
-    upRight: {fileID: 21300000, guid: 9086f08742699d74db02d68116284bfb, type: 3}
-    down: {fileID: 21300000, guid: 6459f759433f5974bbe3c17ea5a56735, type: 3}
-    downLeft: {fileID: 21300000, guid: 63b490baa58fba94bb96fa12d39f1735, type: 3}
-    downRight: {fileID: 21300000, guid: babe2721cf3ef664e9039f0cae032b4b, type: 3}
-    left: {fileID: 21300000, guid: d51ad8a89fc956342a79d4656e60df6d, type: 3}
-    leftLeft: {fileID: 21300000, guid: aa2ebe4c5ec7f4e4fb6598e019057894, type: 3}
-    leftRight: {fileID: 21300000, guid: a7c0df2c0f9a2d743b248c98573681ed, type: 3}
-    right: {fileID: 21300000, guid: 5c4195343432c2b4da02fbae1c08efe1, type: 3}
-    rightLeft: {fileID: 21300000, guid: c6a5789d149ab314b96ff33f6c0ea265, type: 3}
-    rightRight: {fileID: 21300000, guid: 3daf4c0831703a64e8469eeee67ec7d3, type: 3}
+    defaultSprite: {fileID: 7400000, guid: b238cf60fd83b984db7d6a1b6ad43a0d, type: 2}
+    up: {fileID: 7400000, guid: 58dad220da72c1c4cb16a5391a7d1305, type: 2}
+    upLeft: {fileID: 7400000, guid: 49c4bc8820854c944945c8e04377b96f, type: 2}
+    upRight: {fileID: 7400000, guid: ecc4ae235475d404faa8db2c5db4c99b, type: 2}
+    down: {fileID: 7400000, guid: e80e1b49a55f6d247a972c2d6b954619, type: 2}
+    downLeft: {fileID: 7400000, guid: 5a9b0e25f6daa564e91200dc9f9dd9cc, type: 2}
+    downRight: {fileID: 7400000, guid: dab345ee61cb231418f331f12a642652, type: 2}
+    left: {fileID: 7400000, guid: a768dd1c9d12748498fad54f873ebc9b, type: 2}
+    leftLeft: {fileID: 7400000, guid: c3c62812d83e76544b25d0c9c9e42771, type: 2}
+    leftRight: {fileID: 7400000, guid: 3c5d2e5b2d975824c9ea7c1d96a8b3fa, type: 2}
+    right: {fileID: 7400000, guid: 3bb8c42217225c34ca7f82098e9e16e3, type: 2}
+    rightLeft: {fileID: 7400000, guid: b5a947cca7f187341876222819065ccf, type: 2}
+    rightRight: {fileID: 7400000, guid: e9f760d59f9c58749b6cc1c9f0075ef8, type: 2}
 --- !u!114 &1322566643538184236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,3 +142,24 @@ MonoBehaviour:
   reachedNode: 0
   curNode: {x: 0, y: 0}
   invincibility: 0
+--- !u!95 &4536721366941571889
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6820566299955536399}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f2e638c6d84694e4eb8ef6fa258d5f58, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

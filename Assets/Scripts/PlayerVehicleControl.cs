@@ -7,31 +7,13 @@ using UnityEngine.UI;
 [RequireComponent(typeof(VehicleNavigation))]
 public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
 {
-    [System.Serializable]
-    public struct SpritesContainer
-    {
-        public Sprite defaultSprite;
-        public Sprite up;
-        public Sprite upLeft;
-        public Sprite upRight;
-        public Sprite down;
-        public Sprite downLeft;
-        public Sprite downRight;
-        public Sprite left;
-        public Sprite leftLeft;
-        public Sprite leftRight;
-        public Sprite right;
-        public Sprite rightLeft;
-        public Sprite rightRight;
-    }
 
     public Vector2Int destination;
     public float deliveryTime;
     public VehicleNavigation.Direction startDir;
     public VehicleNavigation.Direction destinationDir;
-    public SpritesContainer sprites;
-
     VehicleNavigation.Direction savedDir;
+    string currentAnim = "default";
 
     VehicleNavigation vehicleNavigation;
     bool turnLeft = false;
@@ -169,53 +151,47 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
                 }
             }
         }
-        SwitchImage(vehicleNavigation.movementDir, turnLeft, turnRight);
+        SwitchAnim(vehicleNavigation.movementDir, turnLeft, turnRight);
     }
 
-    public void SwitchImage(VehicleNavigation.Direction dir, bool left, bool right)
+    public void SwitchAnim(VehicleNavigation.Direction dir, bool left, bool right)
     {
+        string clipName = "";
         switch (dir)
         {
             case VehicleNavigation.Direction.UP:
-                if (left)
-                    SwitchImage(sprites.upLeft);
-                else if (right)
-                    SwitchImage(sprites.upRight);
-                else
-                    SwitchImage(sprites.up);
+                clipName = "up";
                 break;
             case VehicleNavigation.Direction.DOWN:
-                if (left)
-                    SwitchImage(sprites.downLeft);
-                else if (right)
-                    SwitchImage(sprites.downRight);
-                else
-                    SwitchImage(sprites.down);
+                clipName = "down";
                 break;
             case VehicleNavigation.Direction.LEFT:
-                if (left)
-                    SwitchImage(sprites.leftLeft);
-                else if (right)
-                    SwitchImage(sprites.leftRight);
-                else
-                    SwitchImage(sprites.left);
+                clipName = "left";
                 break;
             case VehicleNavigation.Direction.RIGHT:
-                if (left)
-                    SwitchImage(sprites.rightLeft);
-                else if (right)
-                    SwitchImage(sprites.rightRight);
-                else
-                    SwitchImage(sprites.right);
+                clipName = "right";
                 break;
             default:
-                SwitchImage(sprites.defaultSprite);
-                break;
+                SwitchAnim("default");
+                return;
         }
+
+        if (turnLeft)
+            clipName += "Left";
+        else if (turnRight)
+            clipName += "Right";
+
+        SwitchAnim(clipName);
     }
 
-    public void SwitchImage(Sprite img)
+    public void SwitchAnim(string clipName)
     {
-        gameObject.GetComponent<Image>().sprite = img;
+        if (clipName != currentAnim)
+        {
+            Animator anim = gameObject.GetComponent<Animator>();
+            anim.Play(clipName, 0, anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            //anim.Play(clipName);
+            currentAnim = clipName;
+        }
     }
 }
