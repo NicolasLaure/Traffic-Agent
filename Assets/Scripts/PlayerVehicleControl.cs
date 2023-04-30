@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(VehicleNavigation))]
 public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
 {
+
     public Vector2Int destination;
     public float deliveryTime;
     public VehicleNavigation.Direction startDir;
     public VehicleNavigation.Direction destinationDir;
     VehicleNavigation.Direction savedDir;
+    string currentAnim = "default";
 
     VehicleNavigation vehicleNavigation;
     bool turnLeft = false;
@@ -147,6 +150,48 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
                     turnRight = false;
                 }
             }
+        }
+        SwitchAnim(vehicleNavigation.movementDir, turnLeft, turnRight);
+    }
+
+    public void SwitchAnim(VehicleNavigation.Direction dir, bool left, bool right)
+    {
+        string clipName = "";
+        switch (dir)
+        {
+            case VehicleNavigation.Direction.UP:
+                clipName = "up";
+                break;
+            case VehicleNavigation.Direction.DOWN:
+                clipName = "down";
+                break;
+            case VehicleNavigation.Direction.LEFT:
+                clipName = "left";
+                break;
+            case VehicleNavigation.Direction.RIGHT:
+                clipName = "right";
+                break;
+            default:
+                SwitchAnim("default");
+                return;
+        }
+
+        if (turnLeft)
+            clipName += "Left";
+        else if (turnRight)
+            clipName += "Right";
+
+        SwitchAnim(clipName);
+    }
+
+    public void SwitchAnim(string clipName)
+    {
+        if (clipName != currentAnim)
+        {
+            Animator anim = gameObject.GetComponent<Animator>();
+            anim.Play(clipName, 0, anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            //anim.Play(clipName);
+            currentAnim = clipName;
         }
     }
 }
