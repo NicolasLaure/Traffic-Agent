@@ -727,11 +727,11 @@ MonoBehaviour:
   - soundCase: 16
     audioClip: {fileID: 8300000, guid: 84939ab47354e3f45ab8206f7f2d6ac2, type: 3}
   SFXSources:
+  - {fileID: 6734156407529763463}
   - {fileID: 973069799807609065}
   - {fileID: 8109941127691251822}
   - {fileID: 3448183104688718595}
   - {fileID: 7304373341242533552}
-  - {fileID: 6734156407529763463}
   generateArray: 0
   Music: {fileID: 8708961613318113935}
 --- !u!1 &2036224728753275242
