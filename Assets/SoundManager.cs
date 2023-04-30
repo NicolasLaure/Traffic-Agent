@@ -12,12 +12,13 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource Music;
 
+    private bool startUp = true;
+
     void Awake()
     {
 
         if (_instance == null)
         {
-            
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
@@ -29,6 +30,12 @@ public class SoundManager : MonoBehaviour
 
     private void Update()
     {
+        if(startUp)
+        {
+            startUp = false;
+            _instance.PlayAudioClip(SoundCases.StartUpOS);
+        }
+
         if (Input.GetKeyDown(KeyCode.A))
             PlayAudioClip(SoundCases.KeyboardPress);
         if (Input.GetKeyDown(KeyCode.D))
@@ -89,18 +96,23 @@ public enum SoundCases
     ClickError,
     Error,
     Error2,
+    Error3,
+    Error4,
     MotorbikeHit,
     MotorbikeEngine,
+    Horn,
     Notification,
+    Notification2,
+    Notification3,
     PickUpPoint,
     PickUpPoint2,
     PickUpPoint3,
     PickUpPoint4,
     PopUp,
+    PopUp2,
     Click,
     KeyboardPress,
     KeyboardPress2,
-    KeyboardPress3,
     LoadingOS,
     StartUpOS,
     Count
