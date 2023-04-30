@@ -17,6 +17,9 @@ public class VehicleNavigation : MonoBehaviour
     public ConditionalBlocker[] blockers;
     public MapGrid.GridState[] destroyers;
     public float deathDist = 0.5f;
+    public bool destroysVehicles = true;
+    public bool respawns = false;
+    public float respawnTime = 1.0f;
 
     [HideInInspector]
     public MapGrid mapGrid;
@@ -24,11 +27,16 @@ public class VehicleNavigation : MonoBehaviour
     public bool reachedNode;
     [HideInInspector]
     public Vector2Int curNode;
+    [HideInInspector]
+    public bool invincibility = false;
 
     float movementProgress = 0;
 
     bool willDie = false;
     bool blocked = false;
+    bool collisionChecked = false;
+
+    bool offMap = false;
 
 
     [System.Serializable]
@@ -37,28 +45,57 @@ public class VehicleNavigation : MonoBehaviour
         UP,
         DOWN,
         LEFT,
-        RIGHT
+        RIGHT,
+        NONE
     }
 
-    Dictionary<Direction, Vector2Int> directions = new Dictionary<Direction, Vector2Int> {
+    public static Dictionary<Direction, Vector2Int> directions = new Dictionary<Direction, Vector2Int> {
         {Direction.UP, new Vector2Int(0, -1) },
         {Direction.DOWN, new Vector2Int(0, 1) },
         {Direction.LEFT, new Vector2Int(-1, 0) },
-        {Direction.RIGHT, new Vector2Int(1, 0) }
+        {Direction.RIGHT, new Vector2Int(1, 0) },
+        {Direction.NONE, new Vector2Int(0, 0) }
     };
 
-    private void Start()
+    public void Start()
     {
+        invincibility = false;
+        movementProgress = 0;
+        offMap = false;
+        willDie = false;
+        blocked = false;
+        collisionChecked = false;
         mapGrid = gameObject.transform.parent.GetComponent<MapGrid>();
-        reachedNode = true;
+        reachedNode = false;
         curNode = new Vector2Int(gridStart.x, gridStart.y);
+        if (gameObject.GetComponent<PlayerVehicleControl>())
+        {
+            gameObject.GetComponent<PlayerVehicleControl>().Setup();
+        }
         gameObject.transform.position = mapGrid.grid[curNode.x, curNode.y].obj.transform.position;
+
+        //Unless this vehicle is spawning from an inaccesible node, mark the spawn node as occupied
+        if (IsNextNodeDestroyer(Direction.NONE) == false)
+        {
+            //If this vehicle is a destroyer, mark the node it's entering as occupied
+            if (destroysVehicles == true)
+            {
+                mapGrid.grid[curNode.x, curNode.y].obj.GetComponent<NodeCycle>().SetOccupied(true);
+            }
+            else
+            {
+                //If this vehicle is not a destroyer, mark as weakly occupied
+                mapGrid.grid[curNode.x, curNode.y].obj.GetComponent<NodeCycle>().SetWeakOccupied(true, gameObject);
+            }
+        }
     }
 
     void Update()
     {
         string state = "";
-        if (blocked)
+        if (offMap)
+            state = "none";
+        else if (blocked)
             state = "blocked";
         else if (reachedNode)
             state = "reachedNode";
@@ -69,6 +106,9 @@ public class VehicleNavigation : MonoBehaviour
 
         switch (state)
         {
+            case "none":
+                break;
+
             //If the destination is blocked, then check if it's been unblocked
             case "blocked":
                 if (IsNextNodeBlocking(movementDir))
@@ -102,7 +142,7 @@ public class VehicleNavigation : MonoBehaviour
                     {
                         Destroyed();
                     }
-                    movementProgress = Mathf.Min(movementSpeed + movementProgress, 100);
+                    movementProgress = Mathf.Min(movementSpeed * Time.deltaTime + movementProgress, 100);
                 }
                 break;
 
@@ -113,18 +153,60 @@ public class VehicleNavigation : MonoBehaviour
                 Vector2 nextPos = mapGrid.grid[curNode.x + directions[movementDir].x, curNode.y + directions[movementDir].y].obj.transform.position;
                 gameObject.transform.position = Vector2.Lerp(prevPos, nextPos, movementProgress * 0.01f);
 
-                if (willDie == true && movementProgress * 0.01f > deathDist)
+                if (movementProgress * 0.01f > deathDist)
                 {
-                    //Death code
-                    Destroy(gameObject);
+                    //Unoccupy the previous node
+                    if (destroysVehicles == true)
+                    {
+                        mapGrid.grid[curNode.x, curNode.y].obj.GetComponent<NodeCycle>().SetOccupied(false);
+                    }
+                    else
+                    {
+                        mapGrid.grid[curNode.x, curNode.y].obj.GetComponent<NodeCycle>().SetWeakOccupied(false, gameObject);
+                    }
+
+                    if (!invincibility)
+                    {
+                        //If set to die, or the node this vehicle is entering is suddenly blocked by a destroyer, kill this vehicle
+                        if (willDie == true || IsNextNodeDestroyer(movementDir))
+                        {
+                            Destruction();
+                        }
+                        else
+                        {
+                            //If this vehicle is a destroyer, mark the node it's entering as occupied
+                            if (destroysVehicles == true)
+                            {
+                                mapGrid.grid[curNode.x + directions[movementDir].x, curNode.y + directions[movementDir].y].obj.GetComponent<NodeCycle>().SetOccupied(true);
+                            }
+                            else
+                            {
+                                //If this vehicle is not a destroyer, check once upon entering the space if a player is already there, and if so die, otherwise mark as weakly occupied
+                                if (collisionChecked == false)
+                                {
+                                    if (GetNode(movementDir) == MapGrid.GridState.OCCUPIED_WEAK)
+                                    {
+                                        willDie = true;
+                                        Destruction();
+                                    }
+                                    else
+                                    {
+                                        mapGrid.grid[curNode.x + directions[movementDir].x, curNode.y + directions[movementDir].y].obj.GetComponent<NodeCycle>().SetWeakOccupied(true, gameObject);
+                                    }
+                                    collisionChecked = true;
+                                }
+                            }
+                        }
+                    }
                 }
 
-                movementProgress = Mathf.Min(movementSpeed + movementProgress, 100);
+                movementProgress = Mathf.Min(movementSpeed * Time.deltaTime + movementProgress, 100);
                 if (movementProgress >= 100)
                 {
                     movementProgress = 0;
                     curNode = new Vector2Int(curNode.x + directions[movementDir].x, curNode.y + directions[movementDir].y);
                     reachedNode = true;
+                    collisionChecked = false;
                 }
                 break;
         }
@@ -133,6 +215,9 @@ public class VehicleNavigation : MonoBehaviour
     //Checks to see if the desired destination blocks this vehicle
     public bool IsNextNodeBlocking(Direction dir)
     {
+        if (invincibility)
+            return false;
+
         MapGrid.GridState nextNodeType = GetNode(dir);
 
         foreach (ConditionalBlocker t in blockers)
@@ -148,6 +233,9 @@ public class VehicleNavigation : MonoBehaviour
     //Checks to see if the desired destination is a blocker, ignoring the condition
     public bool IsNextNodeBlocker(Direction dir)
     {
+        if (invincibility)
+            return false;
+
         MapGrid.GridState nextNodeType = GetNode(dir);
 
         foreach (ConditionalBlocker t in blockers)
@@ -163,6 +251,9 @@ public class VehicleNavigation : MonoBehaviour
     //Checks to see if the desired destination will destroy this vehicle
     public bool IsNextNodeDestroyer(Direction dir)
     {
+        if (invincibility)
+            return false;
+
         MapGrid.GridState nextNodeType = GetNode(dir);
 
         if (nextNodeType == MapGrid.GridState.TRAFFICLIGHTHOR && (dir == Direction.LEFT || dir == Direction.RIGHT))
@@ -203,5 +294,22 @@ public class VehicleNavigation : MonoBehaviour
     public void Destroyed()
     {
         willDie = true;
+    }
+
+    public void Destruction()
+    {
+        if (respawns)
+        {
+            offMap = true;
+            mapGrid.RespawnVehicle(gameObject, respawnTime);
+        }
+        else
+        {
+            if (gameObject.GetComponent<PlayerVehicleControl>() != null)
+            {
+                DeliveryGame.instance.EndGame();
+            }
+            Destroy(gameObject);
+        }
     }
 }

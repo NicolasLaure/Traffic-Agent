@@ -12,7 +12,9 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
         BUILDING,
         TRAFFICLIGHTHOR,
         TRAFFICLIGHTVER,
-        OFF_MAP
+        OFF_MAP,
+        OCCUPIED,
+        OCCUPIED_WEAK
     }
 
     [System.Serializable]
@@ -37,6 +39,8 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     }
 
     //Public variables in the Inspector
+    public int playerCount = 0;
+    public float streetlightInterval = 5;
     public bool clearGrid = true;
     public int columns = 3;
     public int rows = 3;
@@ -57,6 +61,8 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     //Vector2 prevGridOffset = new Vector2(0, 0);
     [SerializeField, HideInInspector]
     private Vector2 prevBorderSpacing = new Vector2(0, 0);
+    [SerializeField, HideInInspector]
+    private float prevNodeSize = 10;
 
     //Public variables hidden from the Inspector
     [HideInInspector]
@@ -75,6 +81,12 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     public float horizontalSpacing;
     [HideInInspector]
     public float verticalSpacing;
+
+    void Start()
+    {
+        DeliveryGame.instance.winCondition = playerCount * 2;
+        Streetlight.streetlightInterval = streetlightInterval;
+    }
 
     public void CalculateSpacing()
     {
@@ -105,6 +117,19 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     void _OnValidate()
     {
         if (this == null) return;
+        /*
+        if (Mathf.Approximately((float)(gameObject.GetComponent<RectTransform>().rect.width / 1.252), (float)(gameObject.GetComponent<RectTransform>().rect.height / 0.794)) == false)
+        {
+            Debug.LogError("Error: Game panel does not have the ratio of 1252 x 794");
+            Debug.Log((float)(gameObject.GetComponent<RectTransform>().rect.width / 1.252));
+            Debug.Log((float)(gameObject.GetComponent<RectTransform>().rect.height / 0.794));
+        }
+        else
+        {
+            Debug.Log("Congratulations, the game panel has the correct ratio of 1252 x 794");
+        }
+        */
+
         //Raise an error if the default node hasn't been assigned
         if (defaultNode == null)
         {
@@ -237,12 +262,28 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
                         rt.offsetMax = Vector2.zero;
                         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, nodeSize);
                         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, nodeSize);
-                        grid[i,j].obj.GetComponent<NodeCycle>().ChangeChildsSize(nodeSize);
+                        grid[i, j].obj.GetComponent<NodeCycle>().ChangeChildsSize(nodeSize);
                     }
                 }
                 //prevGridSpacing = gridSpacing;
                 //prevGridOffset = gridOffset;
                 prevBorderSpacing = borderSpacing;
+            }
+            else
+            {
+                if (nodeSize != prevNodeSize)
+                {
+                    for (int i = 0; i < grid.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < grid.GetLength(1); j++)
+                        {
+                            RectTransform rt = grid[i, j].obj.GetComponent<RectTransform>();
+                            rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, nodeSize);
+                            rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, nodeSize);
+                            grid[i, j].obj.GetComponent<NodeCycle>().ChangeChildsSize(nodeSize);
+                        }
+                    }
+                }
             }
         }
     }
@@ -276,5 +317,27 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
         {
             grid[(i / prevRows), (i % prevRows)] = serializableGrid[i];
         }
+    }
+
+
+    public void RespawnVehicle(GameObject go, float respawnTime)
+    {
+        StartCoroutine(RespawnVehicleCoroutine(go, respawnTime));
+    }
+
+    IEnumerator RespawnVehicleCoroutine(GameObject go, float respawnTime)
+    {
+        go.SetActive(false);
+        yield return new WaitForSeconds(respawnTime);
+        Vector2Int start = go.GetComponent<VehicleNavigation>().gridStart;
+        Vector2Int next = VehicleNavigation.directions[go.GetComponent<VehicleNavigation>().movementDir] + start;
+        while (grid[start.x, start.y].gridState == GridState.OCCUPIED || grid[start.x, start.y].gridState == GridState.OCCUPIED_WEAK
+            || grid[next.x, next.y].gridState == GridState.OCCUPIED || grid[next.x, next.y].gridState == GridState.OCCUPIED_WEAK
+            )
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        go.SetActive(true);
+        go.GetComponent<VehicleNavigation>().Start();
     }
 }
