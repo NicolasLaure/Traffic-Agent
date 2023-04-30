@@ -12,7 +12,9 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
         BUILDING,
         TRAFFICLIGHTHOR,
         TRAFFICLIGHTVER,
-        OFF_MAP
+        OFF_MAP,
+        OCCUPIED,
+        OCCUPIED_WEAK
     }
 
     [System.Serializable]
@@ -57,6 +59,8 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     //Vector2 prevGridOffset = new Vector2(0, 0);
     [SerializeField, HideInInspector]
     private Vector2 prevBorderSpacing = new Vector2(0, 0);
+    [SerializeField, HideInInspector]
+    private float prevNodeSize = 10;
 
     //Public variables hidden from the Inspector
     [HideInInspector]
@@ -237,12 +241,28 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
                         rt.offsetMax = Vector2.zero;
                         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, nodeSize);
                         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, nodeSize);
-                        grid[i,j].obj.GetComponent<NodeCycle>().ChangeChildsSize(nodeSize);
+                        grid[i, j].obj.GetComponent<NodeCycle>().ChangeChildsSize(nodeSize);
                     }
                 }
                 //prevGridSpacing = gridSpacing;
                 //prevGridOffset = gridOffset;
                 prevBorderSpacing = borderSpacing;
+            }
+            else
+            {
+                if (nodeSize != prevNodeSize)
+                {
+                    for (int i = 0; i < grid.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < grid.GetLength(1); j++)
+                        {
+                            RectTransform rt = grid[i, j].obj.GetComponent<RectTransform>();
+                            rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, nodeSize);
+                            rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, nodeSize);
+                            grid[i, j].obj.GetComponent<NodeCycle>().ChangeChildsSize(nodeSize);
+                        }
+                    }
+                }
             }
         }
     }
@@ -276,5 +296,19 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
         {
             grid[(i / prevRows), (i % prevRows)] = serializableGrid[i];
         }
+    }
+
+
+    public void RespawnVehicle(GameObject go, float respawnTime)
+    {
+        StartCoroutine(RespawnVehicleCoroutine(go, respawnTime));
+    }
+
+    IEnumerator RespawnVehicleCoroutine(GameObject go, float respawnTime)
+    {
+        go.SetActive(false);
+        yield return new WaitForSeconds(respawnTime);
+        go.SetActive(true);
+        go.GetComponent<VehicleNavigation>().Start();
     }
 }
