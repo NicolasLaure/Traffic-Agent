@@ -8,6 +8,8 @@ TagManager:
   - GameWindow
   - AdGenerator
   - SpawnPoint
+  - Tab
+  - OsPanel
   layers:
   - Default
   - TransparentFX

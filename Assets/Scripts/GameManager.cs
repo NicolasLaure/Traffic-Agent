@@ -27,8 +27,9 @@ public class GameManager : Singleton<GameManager>
         Cursor.visible = false;
     }
 
-   public void HOAL()
+   public void ExitGame()
     {
-
+        Application.Quit();
+        Debug.Log("Salir del juego");
     }
 }

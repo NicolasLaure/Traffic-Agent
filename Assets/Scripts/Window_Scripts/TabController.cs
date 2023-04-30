@@ -8,25 +8,40 @@ public class TabController : MonoBehaviour
 
     private void Start()
     {
-        panel = transform.GetChild(1).gameObject;
+        if (gameObject.CompareTag("Tab"))
+            panel = transform.GetChild(1).gameObject;
     }
 
     public void PanelSwitch()
     {
-        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("SystemPanel"))
+        if (gameObject.CompareTag("Tab"))
         {
-            if(gameObject != this)
+            foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("SystemPanel"))
             {
-                gameObject.SetActive(false);
+                if (gameObject != this)
+                {
+                    gameObject.SetActive(false);
+                }
             }
-        }
-        if (panel.activeInHierarchy)
-        {
-            panel.SetActive(false);
+            if (panel.activeInHierarchy)
+            {
+                panel.SetActive(false);
+            }
+            else
+            {
+                panel.SetActive(true);
+            }
         }
         else
         {
-            panel.SetActive(true);
+            if (panel.activeInHierarchy)
+            {
+                panel.SetActive(false);
+            }
+            else
+            {
+                panel.SetActive(true);
+            }
         }
     }
 }
