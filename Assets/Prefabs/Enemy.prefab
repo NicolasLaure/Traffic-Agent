@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6820566299955536399
+--- !u!1 &5731103025942124019
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3329386801286982194}
-  - component: {fileID: 1322566643538184239}
-  - component: {fileID: 8473266028382952670}
-  - component: {fileID: 1322566643538184237}
-  - component: {fileID: 1322566643538184236}
+  - component: {fileID: 4547272883021176270}
+  - component: {fileID: 249316895226085331}
+  - component: {fileID: 7257662610098449186}
+  - component: {fileID: 249316895226085328}
   m_Layer: 5
-  m_Name: Moto
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &3329386801286982194
+--- !u!224 &4547272883021176270
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6820566299955536399}
+  m_GameObject: {fileID: 5731103025942124019}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,40 +34,40 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.85}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.10383387, y: 0.15743072}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1322566643538184239
+--- !u!222 &249316895226085331
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6820566299955536399}
+  m_GameObject: {fileID: 5731103025942124019}
   m_CullTransparentMesh: 1
---- !u!114 &8473266028382952670
+--- !u!114 &7257662610098449186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6820566299955536399}
+  m_GameObject: {fileID: 5731103025942124019}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6509434, g: 0.34697527, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8e3a8a4a5c7b62549b8caedb963d274f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ccc508108fa6ed4fa11b4a467d7f609, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -78,33 +77,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1322566643538184237
+--- !u!114 &249316895226085328
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6820566299955536399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1586f4ba6dd3047b16f02842553ca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1322566643538184236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6820566299955536399}
+  m_GameObject: {fileID: 5731103025942124019}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 924b99ce6f9afc34ab4a28d6aa61c207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridStart: {x: 1, y: 0}
+  gridStart: {x: 7, y: 1}
   movementSpeed: 50
-  movementDir: 1
+  movementDir: 2
   blockers:
   - blocker: 3
     passCondition: 0
@@ -114,10 +101,10 @@ MonoBehaviour:
     passCondition: 2
   - blocker: 2
     passCondition: 3
-  destroyers: 010000000500000004000000
+  destroyers: 0100000004000000
   deathDist: 0.5
-  destroysVehicles: 0
-  respawns: 0
+  destroysVehicles: 1
+  respawns: 1
   respawnTime: 1
   mapGrid: {fileID: 0}
   reachedNode: 0

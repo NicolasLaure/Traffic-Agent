@@ -16,7 +16,12 @@ public class NodeCycle : MonoBehaviour
     public GameObject nextType;
 
     public GameObject[] childs;
-    
+
+    [HideInInspector]
+    public GameObject weakOccupant;
+    bool occupied = false;
+
+
 #if UNITY_EDITOR
     public GameObject Cycle()
     {
@@ -31,11 +36,11 @@ public class NodeCycle : MonoBehaviour
         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, mapGrid.nodeSize);
         tempNode.obj.GetComponent<NodeCycle>().ChangeChildsSize(mapGrid.nodeSize);
         mapGrid.grid[gridX, gridY] = tempNode;
-        StartCoroutine(Destroy(gameObject));
+        StartCoroutine(EditorDestroy(gameObject));
         return tempNode.obj;
     }
 
-    IEnumerator Destroy(GameObject go)
+    IEnumerator EditorDestroy(GameObject go)
     {
         yield return null;
         DestroyImmediate(go);
@@ -65,5 +70,38 @@ public class NodeCycle : MonoBehaviour
             item.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size);
             item.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size);
         }
+    }
+
+    public void SetOccupied(bool occupy)
+    {
+        if (occupy == false)
+        {
+            mapGrid.grid[gridX, gridY].gridState = nodeType;
+        }
+        else
+        {
+            if (mapGrid.grid[gridX, gridY].gridState == MapGrid.GridState.OCCUPIED_WEAK && weakOccupant != null)
+            {
+                weakOccupant.GetComponent<VehicleNavigation>().Destruction();
+                SetWeakOccupied(false, null);
+            }
+            mapGrid.grid[gridX, gridY].gridState = MapGrid.GridState.OCCUPIED;
+        }
+        occupied = occupy;
+    }
+
+    public void SetWeakOccupied(bool occupy, GameObject go)
+    {
+        if (occupy == false)
+        {
+            weakOccupant = null;
+            mapGrid.grid[gridX, gridY].gridState = nodeType;
+        }
+        else
+        {
+            weakOccupant = go;
+            mapGrid.grid[gridX, gridY].gridState = MapGrid.GridState.OCCUPIED_WEAK;
+        }
+        occupied = occupy;
     }
 }
