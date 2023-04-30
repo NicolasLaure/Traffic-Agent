@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - SystemPanel
+  - GameWindow
+  - AdGenerator
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

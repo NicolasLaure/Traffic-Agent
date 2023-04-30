@@ -781,6 +781,7 @@ GameObject:
   - component: {fileID: 1496016017158232465}
   - component: {fileID: 1496016017158232464}
   - component: {fileID: 1496016017158232479}
+  - component: {fileID: 4599650183039845416}
   m_Layer: 5
   m_Name: Button 2
   m_TagString: Untagged
@@ -903,6 +904,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4599650183039845416}
+        m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
+        m_MethodName: SetAdsValues
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4599650183039845416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496016017158232477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca473ef92d1aaf14eb45d0ed6d060050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnCoolDown: 0
+  quantityToSpawn: 1
 --- !u!1 &1496016017387976270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,6 +1211,7 @@ GameObject:
   - component: {fileID: 1496016017579957635}
   - component: {fileID: 1496016017579957634}
   - component: {fileID: 1496016017579957633}
+  - component: {fileID: 2973167738303402956}
   m_Layer: 5
   m_Name: Button 1
   m_TagString: Untagged
@@ -1306,6 +1334,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2973167738303402956}
+        m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
+        m_MethodName: SetAdsValues
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2973167738303402956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496016017579957647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca473ef92d1aaf14eb45d0ed6d060050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnCoolDown: 2
+  quantityToSpawn: 2
 --- !u!1 &1496016017942687953
 GameObject:
   m_ObjectHideFlags: 0
