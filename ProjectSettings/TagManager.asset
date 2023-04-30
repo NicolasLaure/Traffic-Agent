@@ -6,6 +6,8 @@ TagManager:
   tags:
   - SystemPanel
   - GameWindow
+  - AdGenerator
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

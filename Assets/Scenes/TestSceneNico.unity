@@ -484,7 +484,7 @@ GameObject:
   - component: {fileID: 1076271563}
   m_Layer: 0
   m_Name: AdGenerator
-  m_TagString: Untagged
+  m_TagString: AdGenerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -520,7 +520,7 @@ MonoBehaviour:
   - {fileID: 4098742602747196108, guid: 478309f9b2fa34a4cbf94c0611fbb3d9, type: 3}
   - {fileID: 4098742602747196108, guid: 5bf0dbd953571294396582ae86f4441d, type: 3}
   spawnCoolDown: 0
-  QuantityToSpawn: 3
+  QuantityToSpawn: 0
 --- !u!1 &1607081322
 GameObject:
   m_ObjectHideFlags: 0
