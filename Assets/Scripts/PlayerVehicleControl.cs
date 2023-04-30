@@ -6,9 +6,19 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(VehicleNavigation))]
 public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
 {
+    public Vector2Int destination;
+    public float deliveryTime;
+    public VehicleNavigation.Direction startDir;
+    public VehicleNavigation.Direction destinationDir;
+    VehicleNavigation.Direction savedDir;
+
     VehicleNavigation vehicleNavigation;
     bool turnLeft = false;
     bool turnRight = false;
+
+    bool delivering = true;
+
+    bool returning = false;
 
     Dictionary<VehicleNavigation.Direction, VehicleNavigation.Direction> leftTurnConversions = new Dictionary<VehicleNavigation.Direction, VehicleNavigation.Direction> {
         {VehicleNavigation.Direction.UP, VehicleNavigation.Direction.LEFT },
@@ -29,22 +39,39 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
         vehicleNavigation = gameObject.GetComponent<VehicleNavigation>();
     }
 
+    public void Setup()
+    {
+        //In order to have the player vehicle leave from a building, this controls the vehicle for the player for 1 node
+        delivering = true;
+        if (vehicleNavigation.movementDir == leftTurnConversions[startDir])
+            turnLeft = true;
+        else if (vehicleNavigation.movementDir == rightTurnConversions[startDir])
+            turnRight = true;
+
+        vehicleNavigation.curNode = vehicleNavigation.curNode + VehicleNavigation.directions[leftTurnConversions[leftTurnConversions[startDir]]];
+        vehicleNavigation.movementDir = startDir;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        //If not currently delivering (auto-controlled movement), clicks determine whether this vehicle turns or not
+        if (!delivering)
         {
-            turnLeft = true;
-            turnRight = false;
-        }
-        else if (eventData.button == PointerEventData.InputButton.Middle)
-        {
-            turnLeft = false;
-            turnRight = false;
-        }
-        else if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            turnLeft = false;
-            turnRight = true;
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                turnLeft = true;
+                turnRight = false;
+            }
+            else if (eventData.button == PointerEventData.InputButton.Middle)
+            {
+                turnLeft = false;
+                turnRight = false;
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                turnLeft = false;
+                turnRight = true;
+            }
         }
     }
 
@@ -52,6 +79,57 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
     {
         if (vehicleNavigation.reachedNode)
         {
+            if (delivering)
+            {
+                delivering = false;
+            }
+
+            //If the destination is reached, set invincibility and the stuff needed to have the vehicle be auto controlled into the building
+            if (vehicleNavigation.curNode == destination)
+            {
+                delivering = true;
+                vehicleNavigation.invincibility = true;
+                savedDir = vehicleNavigation.movementDir;
+                vehicleNavigation.movementDir = destinationDir;
+                turnLeft = false;
+                turnRight = false;
+            }
+            else
+            {
+                //If the vehicle has finished being auto-controlled into the building, then do stuff depending on if this is the return trip or not
+                if (vehicleNavigation.curNode == destination + VehicleNavigation.directions[destinationDir])
+                {
+                    //If this is the return trip, remove the player vehicle from the game
+                    if (returning)
+                    {
+                        DeliveryGame.instance.winCondition--;
+                        if (DeliveryGame.instance.winCondition == 0)
+                        {
+                            DeliveryGame.instance.EndGame();
+                        }
+
+                        vehicleNavigation.mapGrid.grid[vehicleNavigation.curNode.x, vehicleNavigation.curNode.y].obj.GetComponent<NodeCycle>().SetWeakOccupied(false, gameObject);
+                        Destroy(gameObject);
+                    }
+                    else
+                    {
+                        //If not, set everything up to mimic spawning in at the start, but from the destination this time, and set the original start as the new destination
+                        DeliveryGame.instance.winCondition--;
+                        Vector2Int temp = vehicleNavigation.gridStart;
+                        vehicleNavigation.gridStart = destination;
+                        destination = temp;
+                        destinationDir = leftTurnConversions[leftTurnConversions[startDir]];
+                        startDir = leftTurnConversions[leftTurnConversions[vehicleNavigation.movementDir]];
+                        vehicleNavigation.movementDir = leftTurnConversions[leftTurnConversions[savedDir]];
+                        vehicleNavigation.mapGrid.grid[vehicleNavigation.curNode.x, vehicleNavigation.curNode.y].obj.GetComponent<NodeCycle>().SetWeakOccupied(false, gameObject);
+                        returning = true;
+                        delivering = true;
+                        vehicleNavigation.mapGrid.RespawnVehicle(gameObject, deliveryTime);
+                    }
+                }
+            }
+
+            //If this vehicle was set to turn left, turn left, unless there's a destroyer node to the left, in which case wait until there isn't one
             if (turnLeft)
             {
                 if (vehicleNavigation.IsNextNodeDestroyer(leftTurnConversions[vehicleNavigation.movementDir]) == false)
@@ -60,6 +138,7 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
                     turnLeft = false;
                 }
             }
+            //Same as left, but right this time
             else if (turnRight)
             {
                 if (vehicleNavigation.IsNextNodeDestroyer(rightTurnConversions[vehicleNavigation.movementDir]) == false)
