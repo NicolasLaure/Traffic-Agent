@@ -823,6 +823,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2943014116365921618, guid: 4a03d66996e9f5f42b7e3127144524a5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4098742602747196108, guid: 4a03d66996e9f5f42b7e3127144524a5, type: 3}
       propertyPath: m_Name
       value: OS-Tab
@@ -939,6 +943,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8031231373011624231, guid: 4a03d66996e9f5f42b7e3127144524a5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215915465956111293, guid: 4a03d66996e9f5f42b7e3127144524a5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a03d66996e9f5f42b7e3127144524a5, type: 3}
 --- !u!1 &451249510 stripped
@@ -988,7 +1000,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.019187503, y: 0.5}
   m_AnchorMax: {x: 0.101895854, y: 0.6423704}
-  m_AnchoredPosition: {x: 237.99994, y: 0}
+  m_AnchoredPosition: {x: 238, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &501225741
@@ -1650,7 +1662,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.019187503, y: 0.5}
   m_AnchorMax: {x: 0.101895854, y: 0.6423704}
-  m_AnchoredPosition: {x: 232.99994, y: -168}
+  m_AnchoredPosition: {x: 233, y: -168}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1753227226
@@ -2192,7 +2204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickCount: 0
-  windowPrefab: {fileID: 4098742602747196108, guid: b29aaed41e066d641aa027de36f34cdc, type: 3}
+  windowPrefab: {fileID: 5730102951511092313, guid: 042ee0da7f227b0488a253d6610d4ef4, type: 3}
 --- !u!114 &2103330134
 MonoBehaviour:
   m_ObjectHideFlags: 0
