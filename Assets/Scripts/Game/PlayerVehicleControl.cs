@@ -7,21 +7,25 @@ using UnityEngine.UI;
 [RequireComponent(typeof(VehicleNavigation))]
 public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
 {
+    [System.Serializable]
+    public struct Destination
+    {
+        public Vector2Int node;
+        public VehicleNavigation.Direction destinationDir;
+    }
 
-    public Vector2Int destination;
+    public List<Destination> destinations = new List<Destination>();
     public float deliveryTime;
     public VehicleNavigation.Direction startDir;
-    public VehicleNavigation.Direction destinationDir;
     VehicleNavigation.Direction savedDir;
     string currentAnim = "default";
+    Destination curDestination;
 
     VehicleNavigation vehicleNavigation;
     bool turnLeft = false;
     bool turnRight = false;
 
     bool delivering = true;
-
-    bool returning = false;
 
     Dictionary<VehicleNavigation.Direction, VehicleNavigation.Direction> leftTurnConversions = new Dictionary<VehicleNavigation.Direction, VehicleNavigation.Direction> {
         {VehicleNavigation.Direction.UP, VehicleNavigation.Direction.LEFT },
@@ -89,7 +93,66 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
             }
 
             //If the destination is reached, set invincibility and the stuff needed to have the vehicle be auto controlled into the building
-            if (vehicleNavigation.curNode == destination)
+            if (IsDestination(vehicleNavigation.curNode) >= 0)
+            {
+                delivering = true;
+                vehicleNavigation.invincibility = true;
+                savedDir = vehicleNavigation.movementDir;
+                curDestination = destinations[IsDestination(vehicleNavigation.curNode)];
+                vehicleNavigation.movementDir = curDestination.destinationDir;
+                turnLeft = false;
+                turnRight = false;
+            }
+            else
+            {
+                //If the vehicle has finished being auto-controlled into the building, then do stuff depending on if this is the return trip or not
+                if (vehicleNavigation.curNode == curDestination.node + VehicleNavigation.directions[curDestination.destinationDir])
+                {
+                    //If this is the final destination, remove the player vehicle from the game
+                    if (destinations.Count <= 1)
+                    {
+                        DeliveryGame.instance.winCondition--;
+                        if (DeliveryGame.instance.winCondition == 0)
+                        {
+                            DeliveryGame.instance.EndGame();
+                        }
+
+                        vehicleNavigation.mapGrid.grid[vehicleNavigation.curNode.x, vehicleNavigation.curNode.y].obj.GetComponent<NodeCycle>().SetWeakOccupied(false, gameObject);
+                        Destroy(gameObject);
+                    }
+                    else
+                    {
+                        //If not, set everything up to mimic spawning in at the start, but from the destination this time, and remove this destination from the list
+                        DeliveryGame.instance.winCondition--;
+                        Vector2Int temp = vehicleNavigation.gridStart;
+                        vehicleNavigation.gridStart = curDestination.node;
+                        startDir = leftTurnConversions[leftTurnConversions[vehicleNavigation.movementDir]];
+                        vehicleNavigation.movementDir = savedDir;
+                        vehicleNavigation.mapGrid.grid[vehicleNavigation.curNode.x, vehicleNavigation.curNode.y].obj.GetComponent<NodeCycle>().SetWeakOccupied(false, gameObject);
+                        delivering = true;
+                        DeliveryGame.instance.RemoveEngine();
+                        for (int i = 0; i < destinations.Count; i++)
+                        {
+                            if (destinations[i].node == curDestination.node)
+                            {
+                                destinations.RemoveAt(i);
+                                break;
+                            }
+                        }
+                        curDestination = new Destination();
+
+                        //TODO: Thumbs up emote needs to show up
+
+                        vehicleNavigation.mapGrid.RespawnVehicle(gameObject, deliveryTime);
+                    }
+                }
+            }
+
+            /*
+            //============ RETURN TRIP VERSION ============
+
+            //If the destination is reached, set invincibility and the stuff needed to have the vehicle be auto controlled into the building
+            if (IsDestination(vehicleNavigation.curNode) == true)
             {
                 delivering = true;
                 vehicleNavigation.invincibility = true;
@@ -130,12 +193,11 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
                         delivering = true;
                         DeliveryGame.instance.RemoveEngine();
 
-                        //TODO: Thumbs up emote needs to show up
-
                         vehicleNavigation.mapGrid.RespawnVehicle(gameObject, deliveryTime);
                     }
                 }
             }
+            */
 
             //If this vehicle was set to turn left, turn left, unless there's a destroyer node to the left, in which case wait until there isn't one
             if (turnLeft)
@@ -156,7 +218,20 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
                 }
             }
         }
+
         SwitchAnim(vehicleNavigation.movementDir, turnLeft, turnRight);
+    }
+
+    public int IsDestination(Vector2Int node)
+    {
+        for (int i = 0; i < destinations.Count; i++)
+        {
+            if (destinations[i].node == node)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void SwitchAnim(VehicleNavigation.Direction dir, bool left, bool right)
@@ -191,11 +266,10 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
 
     public void SwitchAnim(string clipName)
     {
-        if (clipName != currentAnim)
+        if (clipName != currentAnim && gameObject.activeInHierarchy == true)
         {
             Animator anim = gameObject.GetComponent<Animator>();
             anim.Play(clipName, 0, anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
-            //anim.Play(clipName);
             currentAnim = clipName;
         }
     }

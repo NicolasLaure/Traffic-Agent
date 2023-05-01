@@ -3680,7 +3680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90029432f3c69984c9c1a7d5f4253154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCount: 2
+  destinationCount: 3
   streetlightInterval: 4
   clearGrid: 0
   columns: 29
@@ -56365,6 +56365,10 @@ PrefabInstance:
       propertyPath: movementDir
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1322566643538184236, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
+      propertyPath: movementSpeed
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: startDir
       value: 1
@@ -56380,6 +56384,42 @@ PrefabInstance:
     - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: destinationDir
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
+      propertyPath: destinations.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
+      propertyPath: destinations.Array.data[0].node.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
+      propertyPath: destinations.Array.data[0].node.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
+      propertyPath: destinations.Array.data[1].node.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
+      propertyPath: destinations.Array.data[1].node.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
+      propertyPath: destinations.Array.data[2].node.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
+      propertyPath: destinations.Array.data[2].node.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
+      propertyPath: destinations.Array.data[1].destinationDir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
+      propertyPath: destinations.Array.data[2].destinationDir
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_Pivot.x

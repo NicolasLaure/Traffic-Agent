@@ -59,6 +59,7 @@ public class DeliveryGame : MonoBehaviour
 
     public void StopEngineSound()
     {
+        engineSound = 0;
         SoundManager._instance?.StopAudioClip(SoundCases.MotorbikeEngine);
     }
 
@@ -141,7 +142,7 @@ public class DeliveryGame : MonoBehaviour
         }
         else
         {
-            Debug.Log("Congratulations, the game panel has the correct ratio of 1252 x 794");
+            //Debug.Log("Congratulations, the game panel has the correct ratio of 1252 x 794");
         }
     }
 #endif

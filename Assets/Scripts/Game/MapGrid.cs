@@ -39,7 +39,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     }
 
     //Public variables in the Inspector
-    public int playerCount = 0;
+    public int destinationCount = 0;
     public float streetlightInterval = 5;
     public bool clearGrid = true;
     public int columns = 3;
@@ -84,7 +84,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
 
     void Start()
     {
-        DeliveryGame.instance.winCondition = playerCount * 2;
+        DeliveryGame.instance.winCondition = destinationCount;
         Streetlight.streetlightInterval = streetlightInterval;
     }
 
