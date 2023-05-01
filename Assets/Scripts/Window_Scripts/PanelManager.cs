@@ -15,7 +15,8 @@ public class PanelManager : MonoBehaviour
     {
         if (!windowPrefab.CompareTag("GameWindow"))
         {
-            Instantiate(windowPrefab, windowMaster.transform);
+            GameObject adGameObject = Instantiate(windowPrefab, windowMaster.transform);
+            adGameObject.transform.position = pos;
         }
         else
         {
@@ -23,6 +24,7 @@ public class PanelManager : MonoBehaviour
             if (gameWindow == null)
             {
                 Instantiate(windowPrefab, windowMaster.transform);
+                
             }
         }
     }
