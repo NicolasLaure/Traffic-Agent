@@ -41,6 +41,8 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     //Public variables in the Inspector
     public float levelTime = 30;
     public int destinationCount = 0;
+    public int adCount = 0;
+    public float adCooldown = 2;
     public float streetlightInterval = 5;
     public bool clearGrid = true;
     public int columns = 3;
@@ -85,6 +87,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
 
     void Start()
     {
+        GameObject.FindGameObjectWithTag("AdGenerator").GetComponent<AdGeneratorController>().StartLevel(adCooldown, adCount);
         DeliveryGame.instance.winCondition = destinationCount;
         Streetlight.streetlightInterval = streetlightInterval;
         StartCoroutine(LevelTimer(levelTime));
@@ -350,5 +353,24 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
         }
         go.SetActive(true);
         go.GetComponent<VehicleNavigation>().Start();
+    }
+
+    public void Deliver(PlayerVehicleControl.Destination dest, float deliveryTime)
+    {
+        StartCoroutine(DeliverCoroutine(dest, deliveryTime));
+    }
+
+    public IEnumerator DeliverCoroutine(PlayerVehicleControl.Destination dest, float deliveryTime)
+    {
+        //TODO: Uncomment this when the assets for the houses are implemented
+        //dest.highlighted.SetActive(false);
+        //dest.normal.SetActive(true);
+        yield return new WaitForSeconds((deliveryTime * 0.1f));
+        //Show thumbs up
+        GameObject tempGO = Instantiate(DeliveryGame.instance.thumbsUp, gameObject.transform);
+        Debug.LogWarning(tempGO.name);
+        Vector2Int gridPos = VehicleNavigation.directions[dest.destinationDir] + dest.node;
+        tempGO.transform.position = grid[gridPos.x, gridPos.y].obj.transform.position;
+        GameObject.Destroy(tempGO, deliveryTime * 0.8f);
     }
 }

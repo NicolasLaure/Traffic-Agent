@@ -742,6 +742,9 @@ MonoBehaviour:
   - {fileID: 8109941127691251822}
   - {fileID: 3448183104688718595}
   - {fileID: 7304373341242533552}
+  RandomClips:
+  - {fileID: 8300000, guid: 982bdecc4e87dfb4ea533fad6b853961, type: 3}
+  - {fileID: 8300000, guid: d566e60d9eb60954bbdad909cb909489, type: 3}
   generateArray: 0
   Music: {fileID: 8708961613318113935}
 --- !u!1 &2036224728753275242

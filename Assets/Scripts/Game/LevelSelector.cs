@@ -6,6 +6,9 @@ public class LevelSelector : MonoBehaviour
 {
     public void LoadLevel(int num)
     {
-        DeliveryGame.instance.LoadLevel(num);
+        if (num < GameManager.Instance.levelsUnlocked)
+        {
+            DeliveryGame.instance.LoadLevel(num);
+        }
     }
 }

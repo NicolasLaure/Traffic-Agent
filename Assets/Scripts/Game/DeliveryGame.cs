@@ -12,6 +12,8 @@ public class DeliveryGame : MonoBehaviour
     public GameObject levelComplete;
     public GameObject[] levels;
 
+    public GameObject thumbsUp;
+
     [HideInInspector]
     public int winCondition = -1;
     [HideInInspector]
@@ -68,6 +70,10 @@ public class DeliveryGame : MonoBehaviour
         StopEngineSound();
         if (winCondition == 0)
         {
+            if (previousLevel + 1 >= GameManager.Instance.levelsUnlocked)
+            {
+                GameManager.Instance.levelsUnlocked = previousLevel + 2;
+            }
             LoadLevelComplete();
         }
         else
