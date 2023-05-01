@@ -38,7 +38,9 @@ public class VehicleNavigation : MonoBehaviour
 
     bool offMap = false;
     bool oob = false;
-    bool destroyed = false;
+
+    [HideInInspector]
+    public bool destroyed = false;
 
 
     [System.Serializable]
@@ -318,8 +320,8 @@ public class VehicleNavigation : MonoBehaviour
             {
                 if (oob == false && gameObject.GetComponent<Animator>() != null)
                 {
+                    gameObject.GetComponent<PlayerVehicleControl>().SwitchAnim("destruction");
                     destroyed = true;
-                    gameObject.GetComponent<Animator>().Play("destruction", 0, 0);
                 }
                 else
                 {

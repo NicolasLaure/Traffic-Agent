@@ -240,6 +240,9 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
 
     public void SwitchAnim(VehicleNavigation.Direction dir, bool left, bool right)
     {
+        if (vehicleNavigation.destroyed)
+            return;
+
         string clipName = "";
         switch (dir)
         {
@@ -276,7 +279,18 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
         if (clipName != currentAnim && gameObject.activeInHierarchy == true)
         {
             Animator anim = gameObject.GetComponent<Animator>();
-            anim.Play(clipName, 0, anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            if (clipName == "destruction")
+            {
+                gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, gameObject.GetComponent<RectTransform>().rect.width * 1.8857142857142856f);
+                gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gameObject.GetComponent<RectTransform>().rect.height * 1.8095238095238096f);
+                //x * 1.8857142857142856
+                //y * 1.8095238095238096
+                anim.Play(clipName, 0, 0);
+            }
+            else
+            {
+                anim.Play(clipName, 0, anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            }
             currentAnim = clipName;
         }
     }
