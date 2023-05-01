@@ -37,6 +37,8 @@ public class VehicleNavigation : MonoBehaviour
     bool collisionChecked = false;
 
     bool offMap = false;
+    bool oob = false;
+    bool destroyed = false;
 
 
     [System.Serializable]
@@ -63,6 +65,8 @@ public class VehicleNavigation : MonoBehaviour
         invincibility = false;
         movementProgress = 0;
         offMap = false;
+        oob = false;
+        destroyed = false;
         willDie = false;
         blocked = false;
         collisionChecked = false;
@@ -94,7 +98,7 @@ public class VehicleNavigation : MonoBehaviour
     void Update()
     {
         string state = "";
-        if (offMap)
+        if (offMap || destroyed)
             state = "none";
         else if (blocked)
             state = "blocked";
@@ -295,22 +299,47 @@ public class VehicleNavigation : MonoBehaviour
     public void Destroyed()
     {
         willDie = true;
+        if (GetNode(movementDir) == MapGrid.GridState.OFF_MAP)
+        {
+            oob = true;
+        }
     }
 
     public void Destruction()
     {
-        if (respawns)
+        if (destroyed == false)
         {
-            offMap = true;
-            mapGrid.RespawnVehicle(gameObject, respawnTime);
-        }
-        else
-        {
-            if (gameObject.GetComponent<PlayerVehicleControl>() != null)
+            if (respawns == true)
             {
-                DeliveryGame.instance.EndGame();
+                offMap = true;
+                mapGrid.RespawnVehicle(gameObject, respawnTime);
             }
-            Destroy(gameObject);
+            else
+            {
+                if (oob == false && gameObject.GetComponent<Animator>() != null)
+                {
+                    destroyed = true;
+                    gameObject.GetComponent<Animator>().Play("destruction", 0, 0);
+                }
+                else
+                {
+                    if (gameObject.GetComponent<PlayerVehicleControl>() != null)
+                    {
+                        DeliveryGame.instance.EndGame();
+                    }
+                    Destroy(gameObject);
+                }
+            }
         }
+    }
+
+    //Made to be run from an animation event
+    public void FinishedDestruction()
+    {
+        if (gameObject.GetComponent<PlayerVehicleControl>() != null)
+        {
+            DeliveryGame.instance.EndGame();
+        }
+        Destroy(gameObject);
     }
 }
