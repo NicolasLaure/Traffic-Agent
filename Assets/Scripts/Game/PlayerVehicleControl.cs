@@ -29,6 +29,8 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
 
     bool delivering = true;
 
+    bool highlighted = false;
+
     Dictionary<VehicleNavigation.Direction, VehicleNavigation.Direction> leftTurnConversions = new Dictionary<VehicleNavigation.Direction, VehicleNavigation.Direction> {
         {VehicleNavigation.Direction.UP, VehicleNavigation.Direction.LEFT },
         {VehicleNavigation.Direction.DOWN, VehicleNavigation.Direction.RIGHT },
@@ -110,6 +112,8 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
                 //If the vehicle has finished being auto-controlled into the building, then do stuff depending on if this is the return trip or not
                 if (vehicleNavigation.curNode == curDestination.node + VehicleNavigation.directions[curDestination.destinationDir])
                 {
+                    gameObject.GetComponent<VehicleNavigation>().mapGrid.Deliver(curDestination, deliveryTime);
+
                     //If this is the final destination, remove the player vehicle from the game
                     if (destinations.Count <= 1)
                     {
@@ -141,7 +145,6 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
                                 break;
                             }
                         }
-                        gameObject.GetComponent<VehicleNavigation>().mapGrid.Deliver(curDestination, deliveryTime);
                         curDestination = new Destination();
 
                         vehicleNavigation.mapGrid.RespawnVehicle(gameObject, deliveryTime);
@@ -262,6 +265,9 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
         else if (turnRight)
             clipName += "Right";
 
+        if (highlighted)
+            clipName += "Highlight";
+
         SwitchAnim(clipName);
     }
 
@@ -273,5 +279,15 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
             anim.Play(clipName, 0, anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
             currentAnim = clipName;
         }
+    }
+
+    public void Select()
+    {
+        highlighted = true;
+    }
+
+    public void Deselect()
+    {
+        highlighted = false;
     }
 }

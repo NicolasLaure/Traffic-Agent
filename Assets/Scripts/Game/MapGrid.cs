@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
 {
@@ -51,6 +52,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     //public Vector2 gridOffset = new Vector2(0, 0);
     public Vector2 borderSpacing = new Vector2(0, 0);
     public float nodeSize = 10;
+    public bool showNodes = true;
     public GameObject defaultNode;
 
     //Previous values of the public variables, used to detect when one has changed
@@ -300,6 +302,14 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
                 }
             }
         }
+
+        for (int i = 0; i < grid.GetLength(0); i++)
+        {
+            for (int j = 0; j < grid.GetLength(1); j++)
+            {
+                grid[i, j].obj.GetComponent<Image>().enabled = showNodes;
+            }
+        }
     }
 
     IEnumerator Destroy(GameObject go)
@@ -362,13 +372,11 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
 
     public IEnumerator DeliverCoroutine(PlayerVehicleControl.Destination dest, float deliveryTime)
     {
-        //TODO: Uncomment this when the assets for the houses are implemented
-        //dest.highlighted.SetActive(false);
-        //dest.normal.SetActive(true);
+        dest.highlighted.SetActive(false);
+        dest.normal.SetActive(true);
         yield return new WaitForSeconds((deliveryTime * 0.1f));
         //Show thumbs up
         GameObject tempGO = Instantiate(DeliveryGame.instance.thumbsUp, gameObject.transform);
-        Debug.LogWarning(tempGO.name);
         Vector2Int gridPos = VehicleNavigation.directions[dest.destinationDir] + dest.node;
         tempGO.transform.position = grid[gridPos.x, gridPos.y].obj.transform.position;
         GameObject.Destroy(tempGO, deliveryTime * 0.8f);
