@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager _instance;
     [SerializeField] private List<SoundFile> sounds = new List<SoundFile>();
+    [SerializeField] private AudioClip[] RandomClips;
     [SerializeField] private AudioSource[] SFXSources;
     [SerializeField] private bool generateArray = false;
 
@@ -89,6 +90,49 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void OnProfileClick(GameObject obj)
+    {
+        if (obj.activeSelf)
+        {
+            int index = Random.Range(0, RandomClips.Length);
+            AudioClip clip = RandomClips[index];
+
+            for (int i = 0; i < SFXSources.Length; i++)
+            {
+                if (!SFXSources[i].isPlaying)
+                {
+                    SFXSources[i].clip = clip;
+                    SFXSources[i].Play();
+                }
+            }
+
+        }
+        else
+        {
+            AudioClip clip = null;
+
+            foreach (var item in sounds)
+            {
+                if (item.soundCase == SoundCases.Click)
+                    clip = item.audioClip;
+            }
+
+            if (clip != null)
+            {
+                for (int i = 0; i < SFXSources.Length; i++)
+                {
+                    if (!SFXSources[i].isPlaying)
+                    {
+                        SFXSources[i].clip = clip;
+                        SFXSources[i].Play();
+                    }
+                }
+            }
+
+        }
+
+    }
+
     public bool StopAudioClip(SoundCases soundCase)
     {
         AudioClip playable = null;
@@ -140,6 +184,8 @@ public enum SoundCases
     KeyboardPress2,
     LoadingOS,
     StartUpOS,
+    OnProfileClick,
+    OnProfileClick2,
     Count
 }
 
