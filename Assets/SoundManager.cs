@@ -30,7 +30,7 @@ public class SoundManager : MonoBehaviour
 
     private void Update()
     {
-        if(startUp)
+        if (startUp)
         {
             startUp = false;
             _instance.PlayAudioClip(SoundCases.StartUpOS);
@@ -75,7 +75,7 @@ public class SoundManager : MonoBehaviour
 
             for (int i = 0; i < SFXSources.Length; i++)
             {
-                if(!SFXSources[i].isPlaying && !played)
+                if (!SFXSources[i].isPlaying && !played)
                 {
                     played = true;
                     if (loop)
@@ -89,7 +89,31 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public bool StopAudioClip(SoundCases soundCase)
+    {
+        AudioClip playable = null;
 
+        for (int i = 0; i < sounds.Count; i++)
+        {
+            if (sounds[i].soundCase == soundCase)
+                playable = sounds[i].audioClip;
+        }
+
+        if (playable == null)
+            return false;
+        else
+        {
+            for (int i = 0; i < SFXSources.Length; i++)
+            {
+                if (SFXSources[i].clip == playable)
+                {
+                    SFXSources[i].Stop();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
 public enum SoundCases
 {

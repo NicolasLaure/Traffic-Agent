@@ -37,6 +37,11 @@ public class WindowController : MonoBehaviour
 
     public void DestroyWindow(GameObject window)
     {
+        if (DeliveryGame.instance != null)
+        {
+            DeliveryGame.instance.StopEngineSound();
+        }
+        
         Destroy(window);
     }
 }

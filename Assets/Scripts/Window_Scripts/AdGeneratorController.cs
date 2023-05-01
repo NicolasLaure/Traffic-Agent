@@ -28,11 +28,20 @@ public class AdGeneratorController : MonoBehaviour
         List<GameObject> spawnPoints = new List<GameObject>();
         foreach (GameObject spawnPoint in GameObject.FindGameObjectsWithTag("SpawnPoint"))
         {
-         spawnPoints.Add(spawnPoint);
+            spawnPoints.Add(spawnPoint);
         }
 
         int maxRange = spawnPoints.Count;
+
+        if (maxRange == 0)
+        {
+            spawnedAds = QuantityToSpawn + 1;
+            return;
+        }
+
         int randomNum = Random.Range(0, maxRange);
+
+        Debug.Log(spawnPoints.Count);
 
         GameObject adToSpawn = adsList[Random.Range(0, adsList.Count)].gameObject;
         Instantiate(adToSpawn, spawnPoints[randomNum].transform.position,  Quaternion.identity, GameObject.Find("Canvas").transform);

@@ -14,6 +14,8 @@ public class DeliveryGame : MonoBehaviour
 
     [HideInInspector]
     public int winCondition = -1;
+    [HideInInspector]
+    public int engineSound = 0;
 
     GameObject currentlyLoaded;
     int previousLevel;
@@ -21,12 +23,37 @@ public class DeliveryGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        engineSound = 0;
         instance = this;
         LoadMainMenu();
     }
 
+    public void PlayEngineSound()
+    {
+        if (engineSound < 1)
+        {
+            SoundManager._instance?.PlayAudioClip(SoundCases.MotorbikeEngine, true);
+        }
+        engineSound++;
+    }
+
+    public void RemoveSingleEngine()
+    {
+        engineSound--;
+        if (engineSound < 1)
+        {
+            StopEngineSound();
+        }
+    }
+
+    public void StopEngineSound()
+    {
+        SoundManager._instance?.StopAudioClip(SoundCases.MotorbikeEngine);
+    }
+
     public void EndGame()
     {
+        StopEngineSound();
         if (winCondition == 0)
         {
             LoadLevelComplete();

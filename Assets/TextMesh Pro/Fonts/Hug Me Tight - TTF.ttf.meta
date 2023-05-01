@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 6a99ec1d1731def4f9c7b5c8ac12935b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Hug Me Tight
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 08310c2e409d15744ad884afdb936ecd, type: 3}
+  - {fileID: 12800000, guid: 5a57f259b4f93a94da941c89c6059b05, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

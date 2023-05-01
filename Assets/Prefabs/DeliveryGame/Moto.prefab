@@ -37,7 +37,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.10383387, y: 0.15743072}
+  m_AnchorMax: {x: 0.083865814, y: 0.13224182}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -95,20 +95,6 @@ MonoBehaviour:
   deliveryTime: 3
   startDir: 3
   destinationDir: 1
-  sprites:
-    defaultSprite: {fileID: 7400000, guid: b238cf60fd83b984db7d6a1b6ad43a0d, type: 2}
-    up: {fileID: 7400000, guid: 58dad220da72c1c4cb16a5391a7d1305, type: 2}
-    upLeft: {fileID: 7400000, guid: 49c4bc8820854c944945c8e04377b96f, type: 2}
-    upRight: {fileID: 7400000, guid: ecc4ae235475d404faa8db2c5db4c99b, type: 2}
-    down: {fileID: 7400000, guid: e80e1b49a55f6d247a972c2d6b954619, type: 2}
-    downLeft: {fileID: 7400000, guid: 5a9b0e25f6daa564e91200dc9f9dd9cc, type: 2}
-    downRight: {fileID: 7400000, guid: dab345ee61cb231418f331f12a642652, type: 2}
-    left: {fileID: 7400000, guid: a768dd1c9d12748498fad54f873ebc9b, type: 2}
-    leftLeft: {fileID: 7400000, guid: c3c62812d83e76544b25d0c9c9e42771, type: 2}
-    leftRight: {fileID: 7400000, guid: 3c5d2e5b2d975824c9ea7c1d96a8b3fa, type: 2}
-    right: {fileID: 7400000, guid: 3bb8c42217225c34ca7f82098e9e16e3, type: 2}
-    rightLeft: {fileID: 7400000, guid: b5a947cca7f187341876222819065ccf, type: 2}
-    rightRight: {fileID: 7400000, guid: e9f760d59f9c58749b6cc1c9f0075ef8, type: 2}
 --- !u!114 &1322566643538184236
 MonoBehaviour:
   m_ObjectHideFlags: 0
