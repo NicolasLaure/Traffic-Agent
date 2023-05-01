@@ -110,6 +110,8 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
                 //If the vehicle has finished being auto-controlled into the building, then do stuff depending on if this is the return trip or not
                 if (vehicleNavigation.curNode == curDestination.node + VehicleNavigation.directions[curDestination.destinationDir])
                 {
+                    gameObject.GetComponent<VehicleNavigation>().mapGrid.Deliver(curDestination, deliveryTime);
+
                     //If this is the final destination, remove the player vehicle from the game
                     if (destinations.Count <= 1)
                     {
@@ -141,7 +143,6 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
                                 break;
                             }
                         }
-                        gameObject.GetComponent<VehicleNavigation>().mapGrid.Deliver(curDestination, deliveryTime);
                         curDestination = new Destination();
 
                         vehicleNavigation.mapGrid.RespawnVehicle(gameObject, deliveryTime);
