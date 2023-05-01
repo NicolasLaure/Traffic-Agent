@@ -49,7 +49,8 @@ public class VehicleNavigation : MonoBehaviour
         NONE
     }
 
-    public static Dictionary<Direction, Vector2Int> directions = new Dictionary<Direction, Vector2Int> {
+    public static Dictionary<Direction, Vector2Int> directions = new Dictionary<Direction, Vector2Int> 
+    {
         {Direction.UP, new Vector2Int(0, -1) },
         {Direction.DOWN, new Vector2Int(0, 1) },
         {Direction.LEFT, new Vector2Int(-1, 0) },

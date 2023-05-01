@@ -39,6 +39,7 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     }
 
     //Public variables in the Inspector
+    public float levelTime = 30;
     public int destinationCount = 0;
     public float streetlightInterval = 5;
     public bool clearGrid = true;
@@ -86,6 +87,16 @@ public class MapGrid : MonoBehaviour, ISerializationCallbackReceiver
     {
         DeliveryGame.instance.winCondition = destinationCount;
         Streetlight.streetlightInterval = streetlightInterval;
+        StartCoroutine(LevelTimer(levelTime));
+    }
+
+    IEnumerator LevelTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (gameObject.activeInHierarchy)
+        {
+            DeliveryGame.instance.EndGame();
+        }
     }
 
     public void CalculateSpacing()
