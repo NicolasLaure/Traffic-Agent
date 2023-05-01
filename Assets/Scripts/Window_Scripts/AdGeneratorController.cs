@@ -14,6 +14,12 @@ public class AdGeneratorController : MonoBehaviour
     float timePass;
 
     bool inLevel = false;
+    GameObject gameManager;
+
+    private void Awake()
+    {
+        gameManager = GameObject.Find("GameManager");
+    }
 
     void Update()
     {
@@ -48,7 +54,7 @@ public class AdGeneratorController : MonoBehaviour
         int randomNum = Random.Range(0, maxRange);
 
         GameObject adToSpawn = adsList[Random.Range(0, adsList.Count)].gameObject;
-        Instantiate(adToSpawn, spawnPoints[randomNum].transform.position,  Quaternion.identity, GameObject.Find("Canvas").transform);
+        gameManager.GetComponent<PanelManager>().WindowInstantiate(adToSpawn, spawnPoints[randomNum].transform.position);
     }
 
     public void StartLevel(float SpawnCd, int QuantityOfAds)

@@ -107,6 +107,7 @@ public class SoundManager : MonoBehaviour
             {
                 if (SFXSources[i].clip == playable)
                 {
+                    SFXSources[i].loop = false;
                     SFXSources[i].Stop();
                     return true;
                 }
