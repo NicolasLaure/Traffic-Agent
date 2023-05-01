@@ -37,4 +37,9 @@ public class GameManager : Singleton<GameManager>
 #endif
         Debug.Log("Salir del juego");
     }
+
+    public void ResetLevels()
+    {
+        levelsUnlocked = 1;
+    }
 }
