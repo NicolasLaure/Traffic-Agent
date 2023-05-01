@@ -28,7 +28,7 @@ public class DeliveryGame : MonoBehaviour
         LoadMainMenu();
     }
 
-    public void PlayEngineSound()
+    public void AddEngine()
     {
         if (engineSound < 1)
         {
@@ -37,13 +37,24 @@ public class DeliveryGame : MonoBehaviour
         engineSound++;
     }
 
-    public void RemoveSingleEngine()
+    public void RemoveEngine()
     {
         engineSound--;
         if (engineSound < 1)
         {
             StopEngineSound();
         }
+    }
+
+    public void WindowDestroyed()
+    {
+        DeliveryGame.instance.CloseGame();
+    }
+
+    public void CloseGame()
+    {
+        StopEngineSound();
+        GameObject.FindGameObjectWithTag("AdGenerator").GetComponent<AdGeneratorController>().EndLevel();
     }
 
     public void StopEngineSound()

@@ -35,13 +35,9 @@ public class WindowController : MonoBehaviour
         yAxisOffset = transform.position.y - MousePointer.transform.position.y;
     }
 
-    public void DestroyWindow(GameObject window)
+    public void DestroyWindow()
     {
-        if (DeliveryGame.instance != null)
-        {
-            DeliveryGame.instance.StopEngineSound();
-        }
-        
-        Destroy(window);
+        BroadcastMessage("WindowDestroyed", SendMessageOptions.DontRequireReceiver);
+        Destroy(gameObject);
     }
 }

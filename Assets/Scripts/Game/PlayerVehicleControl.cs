@@ -44,7 +44,7 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
 
     public void Setup()
     {
-        DeliveryGame.instance.PlayEngineSound();
+        DeliveryGame.instance.AddEngine();
         //In order to have the player vehicle leave from a building, this controls the vehicle for the player for 1 node
         delivering = true;
         if (vehicleNavigation.movementDir == leftTurnConversions[startDir])
@@ -128,6 +128,7 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
                         vehicleNavigation.mapGrid.grid[vehicleNavigation.curNode.x, vehicleNavigation.curNode.y].obj.GetComponent<NodeCycle>().SetWeakOccupied(false, gameObject);
                         returning = true;
                         delivering = true;
+                        DeliveryGame.instance.RemoveEngine();
 
                         //TODO: Thumbs up emote needs to show up
 

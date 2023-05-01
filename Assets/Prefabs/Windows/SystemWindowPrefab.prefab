@@ -687,10 +687,10 @@ MonoBehaviour:
         - m_Target: {fileID: 1040322160838447107}
           m_TargetAssemblyTypeName: WindowController, Assembly-CSharp
           m_MethodName: DestroyWindow
-          m_Mode: 2
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 4098742602747196108}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

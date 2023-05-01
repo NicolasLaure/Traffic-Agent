@@ -9,17 +9,23 @@ public class AdGeneratorController : MonoBehaviour
     [SerializeField] float spawnCoolDown;
     [SerializeField] int QuantityToSpawn;
     float timeToSpawn;
-    // Update is called once per frame
+
     int spawnedAds = 0;
     float timePass;
+
+    bool inLevel = false;
+
     void Update()
     {
-        timePass += Time.deltaTime;
-        if (Time.time >= timeToSpawn && spawnedAds < QuantityToSpawn && timePass >= spawnCoolDown)
+        if (inLevel)
         {
-            SpawnAd();
-            spawnedAds++;
-            timePass = 0;
+            timePass += Time.deltaTime;
+            if (Time.time >= timeToSpawn && spawnedAds < QuantityToSpawn && timePass >= spawnCoolDown)
+            {
+                SpawnAd();
+                spawnedAds++;
+                timePass = 0;
+            }
         }
     }
     
@@ -35,13 +41,11 @@ public class AdGeneratorController : MonoBehaviour
 
         if (maxRange == 0)
         {
-            spawnedAds = QuantityToSpawn + 1;
+            EndLevel();
             return;
         }
 
         int randomNum = Random.Range(0, maxRange);
-
-        Debug.Log(spawnPoints.Count);
 
         GameObject adToSpawn = adsList[Random.Range(0, adsList.Count)].gameObject;
         Instantiate(adToSpawn, spawnPoints[randomNum].transform.position,  Quaternion.identity, GameObject.Find("Canvas").transform);
@@ -49,9 +53,16 @@ public class AdGeneratorController : MonoBehaviour
 
     public void StartLevel(float SpawnCd, int QuantityOfAds)
     {
+        inLevel = true;
         spawnCoolDown = SpawnCd;
         QuantityToSpawn = QuantityOfAds;
         timeToSpawn = Random.Range(Time.time, Time.time + 10);
         spawnedAds = 0;
+    }
+
+    public void EndLevel()
+    {
+        QuantityToSpawn = 0;
+        inLevel = false;
     }
 }
