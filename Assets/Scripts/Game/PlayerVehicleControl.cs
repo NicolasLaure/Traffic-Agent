@@ -12,6 +12,8 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
     {
         public Vector2Int node;
         public VehicleNavigation.Direction destinationDir;
+        public GameObject highlighted;
+        public GameObject normal;
     }
 
     public List<Destination> destinations = new List<Destination>();
@@ -139,9 +141,8 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
                                 break;
                             }
                         }
+                        gameObject.GetComponent<VehicleNavigation>().mapGrid.Deliver(curDestination, deliveryTime);
                         curDestination = new Destination();
-
-                        //TODO: Thumbs up emote needs to show up
 
                         vehicleNavigation.mapGrid.RespawnVehicle(gameObject, deliveryTime);
                     }

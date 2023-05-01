@@ -96,5 +96,6 @@ MonoBehaviour:
   levels:
   - {fileID: 6693022611464491398, guid: 04c7a420ce6c2d24da97cb4b1c71e845, type: 3}
   - {fileID: 600010472372806492, guid: c4d52bc989463764c9d17795f3ce2eac, type: 3}
+  thumbsUp: {fileID: 8293185452775935256, guid: eee1d78c3c36c134c91c4f74cb1ad9af, type: 3}
   winCondition: 10000
   engineSound: 0

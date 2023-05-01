@@ -21,6 +21,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
 public class GameManager : Singleton<GameManager>
 {
+    public int levelsUnlocked = 1;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
@@ -30,6 +32,9 @@ public class GameManager : Singleton<GameManager>
    public void ExitGame()
     {
         Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
         Debug.Log("Salir del juego");
     }
 }
