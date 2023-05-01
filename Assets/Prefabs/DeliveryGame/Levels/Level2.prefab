@@ -3817,7 +3817,7 @@ RectTransform:
   - {fileID: 7550732327738169370}
   - {fileID: 8198588638034687354}
   - {fileID: 1059496947291648506}
-  - {fileID: 1172547381754268627}
+  - {fileID: 4618167485288625753}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -56504,7 +56504,7 @@ MonoBehaviour:
   nextType: {fileID: 7238843006518684278, guid: 30f7057e65ba1a44890582eeb66b96f0, type: 3}
   childs: []
   weakOccupant: {fileID: 0}
---- !u!1001 &4499626020018758113
+--- !u!1001 &7936289755303943275
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -56532,18 +56532,6 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destination.x
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destination.y
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destinationDir
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: destinations.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -56560,40 +56548,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2271259761540260187}
     - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destinations.Array.data[1].node.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destinations.Array.data[1].node.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destinations.Array.data[2].node.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destinations.Array.data[2].node.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: destinations.Array.data[0].highlighted
       value: 
       objectReference: {fileID: 1712029332022281007}
-    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destinations.Array.data[1].destinationDir
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322566643538184237, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-      propertyPath: destinations.Array.data[2].destinationDir
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_RootOrder
@@ -56673,12 +56637,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6820566299955536399, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
       propertyPath: m_Name
-      value: Moto
+      value: MotoRosa
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
---- !u!224 &1172547381754268627 stripped
+--- !u!224 &4618167485288625753 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3329386801286982194, guid: 56d73adc6130b314c9b6a31c8c83fae6, type: 3}
-  m_PrefabInstance: {fileID: 4499626020018758113}
+  m_PrefabInstance: {fileID: 7936289755303943275}
   m_PrefabAsset: {fileID: 0}

@@ -29,6 +29,8 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
 
     bool delivering = true;
 
+    bool highlighted = false;
+
     Dictionary<VehicleNavigation.Direction, VehicleNavigation.Direction> leftTurnConversions = new Dictionary<VehicleNavigation.Direction, VehicleNavigation.Direction> {
         {VehicleNavigation.Direction.UP, VehicleNavigation.Direction.LEFT },
         {VehicleNavigation.Direction.DOWN, VehicleNavigation.Direction.RIGHT },
@@ -263,6 +265,9 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
         else if (turnRight)
             clipName += "Right";
 
+        if (highlighted)
+            clipName += "Highlight";
+
         SwitchAnim(clipName);
     }
 
@@ -274,5 +279,15 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
             anim.Play(clipName, 0, anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
             currentAnim = clipName;
         }
+    }
+
+    public void Select()
+    {
+        highlighted = true;
+    }
+
+    public void Deselect()
+    {
+        highlighted = false;
     }
 }
