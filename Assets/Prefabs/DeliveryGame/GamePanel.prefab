@@ -99,6 +99,11 @@ MonoBehaviour:
   - {fileID: 600010472372806492, guid: fdc957c7e2a41044eb62eb753c04e360, type: 3}
   - {fileID: 600010472372806492, guid: 94c248e722d39eb4390f443701570fa1, type: 3}
   - {fileID: 600010472372806492, guid: 167851edded88354f9f92d6732b3188f, type: 3}
+  - {fileID: 600010472372806492, guid: 152475cc0b172a54486c31a76c846fa0, type: 3}
+  - {fileID: 600010472372806492, guid: 639ed16e359de364ead468639d26e6b5, type: 3}
+  - {fileID: 600010472372806492, guid: d019153eafd0cab43adf9f67f78d4df1, type: 3}
+  - {fileID: 600010472372806492, guid: 548943c2a587ad444990691a6251f712, type: 3}
+  - {fileID: 600010472372806492, guid: abc444ae3ba6b9e4ba0ccb96715c14d3, type: 3}
   thumbsUp: {fileID: 8293185452775935256, guid: eee1d78c3c36c134c91c4f74cb1ad9af, type: 3}
   winCondition: 10000
   engineSound: 0
