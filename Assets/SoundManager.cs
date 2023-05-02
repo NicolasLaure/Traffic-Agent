@@ -22,7 +22,7 @@ public class SoundManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
-
+            PlayAudioClip(SoundCases.LoadingOS);
             Music.Play();
         }
         else
