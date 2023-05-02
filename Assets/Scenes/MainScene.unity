@@ -2627,7 +2627,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2873c56aee70bdc4dac79467b460b1f9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0d92f48304ad9454ebd8b1c5a7c4dda9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2803,7 +2803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickCount: 0
-  windowPrefab: {fileID: 5730102951511092313, guid: 77d3cfed60ceabb4f9b212a33454bc97, type: 3}
+  windowPrefab: {fileID: 5730102951511092313, guid: 042ee0da7f227b0488a253d6610d4ef4, type: 3}
 --- !u!114 &2103330134
 MonoBehaviour:
   m_ObjectHideFlags: 0
