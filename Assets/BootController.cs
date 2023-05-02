@@ -16,6 +16,7 @@ public class BootController : MonoBehaviour
         cursor = GameObject.Find("MousePointer");
         cursor.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
+        SoundManager._instance?.PlayAudioClip(SoundCases.LoadingOS);
         StartCoroutine(BootTime());
 
     }
@@ -24,6 +25,7 @@ public class BootController : MonoBehaviour
     IEnumerator BootTime()
     {
         yield return new WaitForSeconds(bootTime);
+        SoundManager._instance?.PlayAudioClip(SoundCases.StartUpOS);
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Confined;
         cursor.SetActive(true);

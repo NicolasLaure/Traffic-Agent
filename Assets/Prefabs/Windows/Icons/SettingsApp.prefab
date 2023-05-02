@@ -120,4 +120,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickCount: 0
-  windowPrefab: {fileID: 4098742602747196108, guid: b29aaed41e066d641aa027de36f34cdc, type: 3}
+  windowPrefab: {fileID: 5730102951511092313, guid: 042ee0da7f227b0488a253d6610d4ef4, type: 3}
