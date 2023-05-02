@@ -3883,7 +3883,7 @@ MonoBehaviour:
   levelTime: 30
   destinationCount: 2
   adCount: 3
-  adCooldown: 2
+  adCooldown: 5
   streetlightInterval: 4
   clearGrid: 0
   columns: 29
