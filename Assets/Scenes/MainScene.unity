@@ -1876,7 +1876,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adsList:
   - {fileID: 5730102951511092313, guid: b7de171c16a39b448acd638b8e248ace, type: 3}
-  - {fileID: 4098742602747196108, guid: 5bf0dbd953571294396582ae86f4441d, type: 3}
+  - {fileID: 5730102951511092313, guid: 11d493f0282a20f469d32b193343a00e, type: 3}
+  - {fileID: 5730102951511092313, guid: 3ff5dad19cdbe394ca1059b9b81afa66, type: 3}
+  - {fileID: 5730102951511092313, guid: 39ba29cf49e9fbd4fbc4656c94899ada, type: 3}
+  - {fileID: 5730102951511092313, guid: d8374a49cfdfa9746af65433189527ea, type: 3}
+  - {fileID: 5730102951511092313, guid: 5ebd27f49f0cff24fa447b2f6cf17755, type: 3}
+  - {fileID: 5730102951511092313, guid: ac2c10bc465dc324b92c326f4a457e25, type: 3}
+  - {fileID: 5730102951511092313, guid: 07cff13208b20bd4f98cd50ae188f610, type: 3}
+  - {fileID: 5730102951511092313, guid: 25ea6fc1faf7f434c8d066c4cad125a8, type: 3}
+  - {fileID: 5730102951511092313, guid: f357dc27be99d2d4ea5ea3d3b87fe203, type: 3}
   spawnCoolDown: 0
   QuantityToSpawn: 0
 --- !u!1 &1105339931
