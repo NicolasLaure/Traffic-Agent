@@ -283,6 +283,10 @@ public class PlayerVehicleControl : MonoBehaviour, IPointerClickHandler
             {
                 gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, gameObject.GetComponent<RectTransform>().rect.width * 1.8857142857142856f);
                 gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gameObject.GetComponent<RectTransform>().rect.height * 1.8095238095238096f);
+                if (vehicleNavigation.movementDir == VehicleNavigation.Direction.LEFT)
+                {
+                    gameObject.GetComponent<RectTransform>().localScale = new Vector3(gameObject.GetComponent<RectTransform>().localScale.x  * - 1, gameObject.GetComponent<RectTransform>().localScale.y, gameObject.GetComponent<RectTransform>().localScale.z);
+                }
                 //x * 1.8857142857142856
                 //y * 1.8095238095238096
                 anim.Play(clipName, 0, 0);

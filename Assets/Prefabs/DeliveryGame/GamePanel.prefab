@@ -92,6 +92,7 @@ MonoBehaviour:
   mainMenu: {fileID: 8806028786422837941, guid: f14db771479212b4fb1c59a32698f86f, type: 3}
   levelSelect: {fileID: 1496016016507813505, guid: f946fc41d7297eb4881f988838a80555, type: 3}
   gameOver: {fileID: 5259828997633833171, guid: dbf200ecfc81a4a43b8fde92378a6857, type: 3}
+  winScreen: {fileID: 3384204382458675492, guid: aaea4e2cbb0e09244b2890e07917d46e, type: 3}
   levelComplete: {fileID: 3384204382458675492, guid: c40e727cec301c94d8763a9a9f4acd6f, type: 3}
   levels:
   - {fileID: 600010472372806492, guid: ece2427012da6d349a170b357b4adf25, type: 3}

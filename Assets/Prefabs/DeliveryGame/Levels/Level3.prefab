@@ -3782,7 +3782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90029432f3c69984c9c1a7d5f4253154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelTime: 30
+  levelTime: 50
   destinationCount: 2
   adCount: 1
   adCooldown: 5

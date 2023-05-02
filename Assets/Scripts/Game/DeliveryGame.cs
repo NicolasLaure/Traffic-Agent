@@ -9,6 +9,7 @@ public class DeliveryGame : MonoBehaviour
     public GameObject mainMenu;
     public GameObject levelSelect;
     public GameObject gameOver;
+    public GameObject winScreen;
     public GameObject levelComplete;
     public GameObject[] levels;
 
@@ -99,7 +100,14 @@ public class DeliveryGame : MonoBehaviour
 
     public void LoadLevelComplete()
     {
-        Load(levelComplete);
+        if (previousLevel == levels.Length - 1)
+        {
+            Load(winScreen);
+        }
+        else
+        {
+            Load(levelComplete);
+        }
     }
 
     public void LoadLevel(int num)

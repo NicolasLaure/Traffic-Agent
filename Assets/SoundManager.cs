@@ -39,11 +39,6 @@ public class SoundManager : MonoBehaviour
             startUp = false;
             _instance.PlayAudioClip(SoundCases.StartUpOS);
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
-            PlayAudioClip(SoundCases.KeyboardPress);
-        if (Input.GetKeyDown(KeyCode.D))
-            PlayAudioClip(SoundCases.Error);
     }
 
     private void OnValidate()
