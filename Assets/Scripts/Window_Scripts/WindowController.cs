@@ -22,7 +22,6 @@ public class WindowController : MonoBehaviour
 
         Vector2 offset = new Vector2(xAxisOffset, yAxisOffset);
         transform.position = mousePos + offset;
-
         OnDrag.Invoke();
     }
 
@@ -37,6 +36,7 @@ public class WindowController : MonoBehaviour
 
     public void DestroyWindow()
     {
+        SoundManager._instance?.PlayAudioClip(SoundCases.Click);
         BroadcastMessage("WindowDestroyed", SendMessageOptions.DontRequireReceiver);
         Destroy(gameObject);
     }

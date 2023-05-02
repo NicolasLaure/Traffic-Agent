@@ -14,6 +14,7 @@ public class TabController : MonoBehaviour
 
     public void PanelSwitch()
     {
+        SoundManager._instance?.PlayAudioClip(SoundCases.Click);
         if (gameObject.CompareTag("Tab"))
         {
             foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("SystemPanel"))
