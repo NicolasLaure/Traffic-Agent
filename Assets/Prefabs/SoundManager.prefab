@@ -736,15 +736,15 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 897965497121f3c45b3b4c48e82cb5e8, type: 3}
   - soundCase: 21
     audioClip: {fileID: 8300000, guid: 84939ab47354e3f45ab8206f7f2d6ac2, type: 3}
+  RandomClips:
+  - {fileID: 8300000, guid: 982bdecc4e87dfb4ea533fad6b853961, type: 3}
+  - {fileID: 8300000, guid: d566e60d9eb60954bbdad909cb909489, type: 3}
   SFXSources:
   - {fileID: 6734156407529763463}
   - {fileID: 973069799807609065}
   - {fileID: 8109941127691251822}
   - {fileID: 3448183104688718595}
   - {fileID: 7304373341242533552}
-  RandomClips:
-  - {fileID: 8300000, guid: 982bdecc4e87dfb4ea533fad6b853961, type: 3}
-  - {fileID: 8300000, guid: d566e60d9eb60954bbdad909cb909489, type: 3}
   generateArray: 0
   Music: {fileID: 8708961613318113935}
 --- !u!1 &2036224728753275242
@@ -918,7 +918,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 97f4bc2d7829b1547a50b93f9e7e1044, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f0e4a24ab99854346a9497f24a66c753, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

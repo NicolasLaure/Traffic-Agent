@@ -22,12 +22,15 @@ public class SoundManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
+
+            Music.Play();
         }
         else
         {
             Destroy(this);
         }
     }
+
 
     private void Update()
     {
